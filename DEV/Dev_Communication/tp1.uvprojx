@@ -390,11 +390,6 @@
               <FilePath>.\Source\Principal.c</FilePath>
             </File>
             <File>
-              <FileName>Rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Source\Rotation.c</FilePath>
-            </File>
-            <File>
               <FileName>MyGPIO.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\MesDrivers\Source\MyGPIO.c</FilePath>
@@ -403,6 +398,11 @@
               <FileName>MyTimers.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\MesDrivers\Source\MyTimers.c</FilePath>
+            </File>
+            <File>
+              <FileName>Communication.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source\Communication.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -801,11 +801,6 @@
               <FilePath>.\Source\Principal.c</FilePath>
             </File>
             <File>
-              <FileName>Rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Source\Rotation.c</FilePath>
-            </File>
-            <File>
               <FileName>MyGPIO.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\MesDrivers\Source\MyGPIO.c</FilePath>
@@ -814,6 +809,11 @@
               <FileName>MyTimers.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\MesDrivers\Source\MyTimers.c</FilePath>
+            </File>
+            <File>
+              <FileName>Communication.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source\Communication.c</FilePath>
             </File>
           </Files>
         </Group>
