@@ -9,7 +9,7 @@
 
 //Only USART1 is clocked with PCLK2 (72 MHz Max). Other USARTs are clocked with PCLK1 (36 MHz Max).
 void setup(){
-MyUSART_Init(USART2, SIZE_MESSAGE_OCTET, PERIODE, 1, 0);
+init_communication();
 
 }
 void loop(){
