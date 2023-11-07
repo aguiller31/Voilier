@@ -32,4 +32,12 @@ void rotation_vitesse_setup(TIM_TypeDef * Timer , char Channel,GPIO_TypeDef * GP
 void rotation_vitesse(float vitesse){
 	MyTimer_PWM_dutyCycle(Timer_rot_vitesse,channel_rot_vitesse,(float)vitesse/100.0);
 }
-
+void rotation_start(){
+	/* Configuration */
+	rotation_sens_setup(GPIOC,10);
+	rotation_vitesse_setup(TIM2,2,GPIOA,10);
+	
+	/*Activation*/
+	rotation_sens(LEFT);
+	rotation_vitesse(20);
+}
