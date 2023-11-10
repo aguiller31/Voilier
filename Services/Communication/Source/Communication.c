@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 typedef void (*FunctionPointer)();
-typedef FunctionPointer FunctionArray[128];
+typedef FunctionPointer FunctionArray[128]; //tableaux des 128 fonctions pour les caractères
 
-FunctionArray functionTable[3];
+FunctionArray functionTable[3]; //tableaux des 128 fonctions pour les 3 USART
 
 void setGPIO_communication(GPIO_TypeDef * GPIO, int rx, int tx){
 		MyGPIO_Init(GPIO,tx,AltOut_Ppull); //TX
@@ -28,7 +28,6 @@ void CommunicationService_Start(CommunicationService *This){
 void CommunicationService_WriteCharacter(CommunicationService *This, char c){
 	This->UART->WriteCharacter(This->UART, c);
 }
-
 
 //permet d'enregistrer une fonction callback pour chaque caractère recu et pour chaque USART
 void CommunicationService_RegisterRead(CommunicationService *This, char c, void (*function )()) {

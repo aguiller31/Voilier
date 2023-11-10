@@ -1,38 +1,39 @@
 #include "MyUART.h"
 #include "stm32f10x.h"
 #include <stdlib.h>
-void ( * USART1_Callback_RXpointeur ) ( char,int ) ;
-void ( * USART2_Callback_RXpointeur ) ( char,int ) ;
-void ( * USART3_Callback_RXpointeur ) ( char,int ) ;
 
-void UARTClass_ClearDR(UARTClass * This){
+typedef void (*UART_Callback_RXpointer)(char, int);
+UART_Callback_RXpointer UART_Callbacks[3];
+
+void UARTDriver_ClearDR(UARTDriver * This){
 	This->UART->DR &= ~0xFF;
 }
-void UARTClass_EnableTX(UARTClass * This)
+void UARTDriver_EnableTX(UARTDriver * This)
 {
 	This->UART->CR1 |= USART_CR1_TE;
 }
-void UARTClass_DisableTX(UARTClass * This)
+void UARTDriver_DisableTX(UARTDriver * This)
 {
 	This->UART->CR1 &= ~USART_CR1_TE;
 	This->ClearDR(This);
 }
-void UARTClass_EnableRX(UARTClass * This)
+void UARTDriver_EnableRX(UARTDriver * This)
 {
 	This->UART->CR1 |= USART_CR1_RE;
 }
-void UARTClass_DisableRX(UARTClass * This)
+void UARTDriver_DisableRX(UARTDriver * This)
 {
 	This->UART->CR1 &= ~USART_CR1_RE;
 	This->ClearDR(This);
 }
-void UARTClass_SetBaudRate(UARTClass * This, int br)
+void UARTDriver_SetBaudRate(UARTDriver * This, int br)
 {
+	//Only USART1 is clocked with PCLK2 (72 MHz Max). Other USARTs are clocked with PCLK1 (36 MHz Max).
 	float usart_div = (72.0*1000000.0)/(((This->UART == USART1)? 1.0 : 2.0)*16*(float)br);
 	This->UART->BRR &= ~0xFFF1;
 	This->UART->BRR |= ((int) usart_div << 4);
 }
-void UARTClass_SetStopBits(UARTClass * This, double sb)
+void UARTDriver_SetStopBits(UARTDriver * This, double sb)
 {
 	This->UART->CR2 &= ~USART_CR2_STOP;
 	if(sb == 0.5){
@@ -43,7 +44,7 @@ void UARTClass_SetStopBits(UARTClass * This, double sb)
 		This->UART->CR2 |= USART_CR2_STOP;
 	}
 }
-void UARTClass_SetParityControl(UARTClass * This, char p)
+void UARTDriver_SetParityControl(UARTDriver * This, char p)
 {
 	if(p == 0){
 		This->UART->CR1 &= ~USART_CR1_PCE;
@@ -51,7 +52,7 @@ void UARTClass_SetParityControl(UARTClass * This, char p)
 		This->UART->CR1 |= USART_CR1_PCE;
 	}
 }
-void UARTClass_SetWordLength(UARTClass * This, char wl)
+void UARTDriver_SetWordLength(UARTDriver * This, char wl)
 {
 	if(wl == 0){ //  1 Start bit, 8 Data bits, n Stop bit
 		This->UART->CR1 &= ~USART_CR1_M;
@@ -59,62 +60,62 @@ void UARTClass_SetWordLength(UARTClass * This, char wl)
 		This->UART->CR1 |= USART_CR1_M;
 	}
 }
-void UARTClass_Start(UARTClass * This)
+void UARTDriver_Start(UARTDriver * This)
 {
 	This->UART->CR1 |= USART_CR1_UE;
 }
 
-void UARTClass_WriteCharacter(UARTClass * This, char character)
+void UARTDriver_WriteCharacter(UARTDriver * This, char character)
 {
 		This->ClearDR(This);
 		This->UART->DR = character;
 		while((This->UART->SR & USART_SR_TXE) != USART_SR_TXE){} //polling sur TXE
 }
-void  UARTClass_ActiveIT(UARTClass * This , char Prio ,void (*IT_function )(char,int)){
+void  UARTDriver_ActiveIT(UARTDriver * This , char Prio ,void (*IT_function )(char,int)){
 		//interruption RX
 	IRQn_Type IRQ_pin;
 	This->UART->CR1 |= USART_CR1_RXNEIE;
 	if(This->UART == USART1){
 		IRQ_pin = USART1_IRQn;
-		USART1_Callback_RXpointeur = IT_function;
+		UART_Callbacks[0] = IT_function;
 	}else if(This->UART == USART2){
 		IRQ_pin = USART2_IRQn;
-	USART2_Callback_RXpointeur = IT_function;
+		UART_Callbacks[1] = IT_function;
 	}else if(This->UART == USART3){
 		IRQ_pin = USART3_IRQn;
-		USART3_Callback_RXpointeur = IT_function;
+		UART_Callbacks[2] = IT_function;
 	}
 
 	NVIC_EnableIRQ(IRQ_pin);
 	NVIC_SetPriority(IRQ_pin,Prio);
 }
-static void  UARTClass_Init( UARTClass *This)
+static void  UARTDriver_Init( UARTDriver *This)
 {
-      This->ClearDR = UARTClass_ClearDR;    
-			This->EnableTX = UARTClass_EnableTX;   
-			This->DisableTX = UARTClass_DisableTX;   
-			This->EnableRX = UARTClass_EnableRX;  
-			This->DisableRX = UARTClass_DisableRX;
-			This->SetBaudRate =UARTClass_SetBaudRate;
-			This->SetStopBits =UARTClass_SetStopBits;
-			This->SetParityControl =UARTClass_SetParityControl;
-			This->SetWordLength = UARTClass_SetWordLength;
-			This->Start =UARTClass_Start;
-			This->WriteCharacter =UARTClass_WriteCharacter;
-			This->ActiveIT =UARTClass_ActiveIT;
+      This->ClearDR = UARTDriver_ClearDR;    
+			This->EnableTX = UARTDriver_EnableTX;   
+			This->DisableTX = UARTDriver_DisableTX;   
+			This->EnableRX = UARTDriver_EnableRX;  
+			This->DisableRX = UARTDriver_DisableRX;
+			This->SetBaudRate =UARTDriver_SetBaudRate;
+			This->SetStopBits =UARTDriver_SetStopBits;
+			This->SetParityControl =UARTDriver_SetParityControl;
+			This->SetWordLength = UARTDriver_SetWordLength;
+			This->Start =UARTDriver_Start;
+			This->WriteCharacter =UARTDriver_WriteCharacter;
+			This->ActiveIT =UARTDriver_ActiveIT;
 	
 		
 }
-void UARTClass_New_Free(UARTClass *This)
+void UARTDriver_New_Free(UARTDriver *This)
 {
         free(This);        
 }
- UARTClass * New_UART(USART_TypeDef * USART)
+ UARTDriver * New_UART(USART_TypeDef * USART)
 {
-       UARTClass *This = malloc(sizeof(UARTClass));
+       UARTDriver *This = malloc(sizeof(UARTDriver));
        if(!This) return NULL;
-       UARTClass_Init(This);
-			 This->Free = UARTClass_New_Free;
+       UARTDriver_Init(This);
+			 This->Free = UARTDriver_New_Free;
 			 This->UART = USART;
 				if(USART == USART1){
 				RCC->APB2ENR |=RCC_APB2ENR_USART1EN;
@@ -129,20 +130,20 @@ void UARTClass_New_Free(UARTClass *This)
 void USART1_IRQHandler (void)
 {
 	if((USART1->SR & USART_SR_RXNE) == USART_SR_RXNE){ //RX
-			(*USART1_Callback_RXpointeur) (USART1->DR,1);
+			(*UART_Callbacks[0]) (USART1->DR,1);
 	} 
 }
 void USART2_IRQHandler (void)
 {
 if((USART2->SR & USART_SR_RXNE) == USART_SR_RXNE){ //RX
-			(*USART2_Callback_RXpointeur) (USART2->DR,2);
+			(*UART_Callbacks[1]) (USART2->DR,2);
 	} 
 
 }
 void USART3_IRQHandler (void)
 {
 	if((USART3->SR & USART_SR_RXNE) == USART_SR_RXNE){ //RX
-			(*USART3_Callback_RXpointeur) (USART1->DR,3);
+			(*UART_Callbacks[2]) (USART3->DR,3);
 	} 
 }
 /*

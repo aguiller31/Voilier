@@ -7,7 +7,7 @@
 #define PAN_ID 111
 #include "Communication.h"
 CommunicationService * ComSer;
-//Only USART1 is clocked with PCLK2 (72 MHz Max). Other USARTs are clocked with PCLK1 (36 MHz Max).
+
 
 void Callback_USART2_a(){
 	//write_communication('b');

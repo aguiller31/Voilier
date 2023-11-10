@@ -11,7 +11,7 @@ typedef struct CommunicationService
 	void (*WriteCharacter)(struct CommunicationService*, char);
 	void (*RegisterRead)(struct CommunicationService*, char,void (*function )());
 	void (*ReadCharacter)(struct CommunicationService*);
-	UARTClass * UART;
+	UARTDriver * UART;
 	int UART_nb;
 } CommunicationService ;
  CommunicationService * New_Communication(USART_TypeDef * USART);
