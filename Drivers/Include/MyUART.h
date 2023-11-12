@@ -14,7 +14,8 @@ typedef struct UARTDriver
 	void (*SetParityControl)(struct UARTDriver*, char);
 	void (*SetWordLength)(struct UARTDriver*, char);
 	void (*Start)(struct UARTDriver*);
-	void (*WriteCharacter)(struct UARTDriver*, signed char);
+	void (*WriteCharacter)(struct UARTDriver*, char);
+	void (*WriteString)(struct UARTDriver*, char*);
 	void (*ActiveIT)(struct UARTDriver *, char ,void (*IT_function )(signed char,int));
 	USART_TypeDef * UART;
 	double StopBits;

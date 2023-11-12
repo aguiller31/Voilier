@@ -1,4 +1,4 @@
-#include "../../MesDrivers/Include/MyTimers.h"
+#include "MyTimers.h"
 #include "stm32f10x.h"
 void ( * TIM1_Callback_pointeur ) ( void ) ;
 void ( * TIM2_Callback_pointeur ) ( void ) ;

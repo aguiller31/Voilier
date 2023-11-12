@@ -65,12 +65,26 @@ void UARTDriver_Start(UARTDriver * This)
 	This->UART->CR1 |= USART_CR1_UE;
 }
 
-void UARTDriver_WriteCharacter(UARTDriver * This, signed char character)
+void UARTDriver_WriteCharacter(UARTDriver * This, char character)
 {
 		This->ClearDR(This);
 		This->UART->DR = character;
 		while((This->UART->SR & USART_SR_TXE) != USART_SR_TXE){} //polling sur TXE
 }
+void UARTDriver_WriteString(UARTDriver * This, char *str) {
+    while (*str != '\0') {
+        // Attendre que le registre de données soit prêt à être écrit
+      
+        // Écrire le caractère dans le registre de données
+        This->WriteCharacter(This, (*str));
+
+        // Passer au caractère suivant dans la chaîne
+        str++;
+    }
+    // Attendre que tous les octets soient transmis
+    while (!(This->UART->SR & USART_SR_TC));
+}
+
 void  UARTDriver_ActiveIT(UARTDriver * This , char Prio ,void (*IT_function )(signed char,int)){
 		//interruption RX
 	IRQn_Type IRQ_pin;
@@ -104,6 +118,7 @@ static void  UARTDriver_Init( UARTDriver *This)
 			This->SetWordLength = UARTDriver_SetWordLength;
 			This->Start =UARTDriver_Start;
 			This->WriteCharacter =UARTDriver_WriteCharacter;
+			This->WriteString =UARTDriver_WriteString;
 			This->ActiveIT =UARTDriver_ActiveIT;
 }
 void UARTDriver_New_Free(UARTDriver *This)

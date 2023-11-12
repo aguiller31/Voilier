@@ -32,6 +32,8 @@ void setup(){
 	void ( * Callback_pointeur_USART2_Babord ) (signed char) ;
 	void ( * Callback_pointeur_USART2_Tribord ) (signed char) ;
 	
+
+	
 	Callback_pointeur_USART2_a = Callback_USART2_a ; 
 	Callback_pointeur_USART2_Bytes = Callback_USART2_Bytes ;
 	Callback_pointeur_USART2_Babord = Callback_USART2_Babord ;
@@ -39,6 +41,11 @@ void setup(){
 	
 	ComSer = New_Communication(USART2);
 	ComSer->Start(ComSer);
+	
+	ComSer->WriteString(ComSer, "Test de String avec new line integre \r\n");
+	ComSer->SendNewLine(ComSer);
+	ComSer->WriteStringNL(ComSer, "Test de String avec new line fonction");
+	ComSer->SendAlert(ComSer,ALERT_LOW_BATTERY);
 	ComSer->RegisterReadChar(ComSer,'a',Callback_pointeur_USART2_a);
 	ComSer->RegisterReadBytes(ComSer,Callback_pointeur_USART2_Bytes);
 	ComSer->RegisterReadDirection(ComSer,BABORD,Callback_pointeur_USART2_Babord);
