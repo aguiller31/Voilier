@@ -1,5 +1,5 @@
 #include "stm32f10x.h"
-#include "conf.h"
+
 #include "Communication_Service.h"
 #include "Rotation_Service.h"
 

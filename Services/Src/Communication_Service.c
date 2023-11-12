@@ -21,13 +21,16 @@
 #define USART3_GPIO GPIOB
 #define USART3_GPIO_RX 11
 #define USART3_GPIO_TX 10
+
+#define COMMUNICATION_ALERT_ROULIS "Detection Limite du Roulis"
+#define COMMUNICATION_ALERT_BATTERY "Tension de batterie trop faible"
 #endif
 
 
 //CODE
 char *alerts[] = {
-	"Detection Limite du Roulis",
-	"Tension de batterie trop faible"
+	COMMUNICATION_ALERT_ROULIS,
+	COMMUNICATION_ALERT_BATTERY
 };
 typedef void (*FunctionPointer)();
 typedef FunctionPointer FunctionArray[128]; //tableaux des 128 fonctions pour les caractères

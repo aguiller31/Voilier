@@ -34,4 +34,6 @@
 	#define USART3_GPIO_RX 11
 	#define USART3_GPIO_TX 10
 
+	#define COMMUNICATION_ALERT_ROULIS "Detection Limite du Roulis"
+	#define COMMUNICATION_ALERT_BATTERY "Tension de batterie trop faible"
 #endif
