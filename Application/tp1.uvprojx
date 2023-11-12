@@ -390,16 +390,6 @@
               <FilePath>.\Source\main.c</FilePath>
             </File>
             <File>
-              <FileName>Communication_Service.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Services\Src\Communication_Service.c</FilePath>
-            </File>
-            <File>
-              <FileName>Rotation_Service.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Services\Src\Rotation_Service.c</FilePath>
-            </File>
-            <File>
               <FileName>conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\conf.h</FilePath>
@@ -429,10 +419,37 @@
               <FileType>1</FileType>
               <FilePath>..\Drivers\Src\UART_Driver.c</FilePath>
             </File>
+            <File>
+              <FileName>Lib_Com_Periph_2022.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\Drivers\Src\Lib_Com_Periph_2022.lib</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Services</GroupName>
+          <Files>
+            <File>
+              <FileName>Communication_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Communication_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Rotation_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Rotation_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Batterie_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Batterie_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Horloge_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Horloge_Service.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
@@ -829,16 +846,6 @@
               <FilePath>.\Source\main.c</FilePath>
             </File>
             <File>
-              <FileName>Communication_Service.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Services\Src\Communication_Service.c</FilePath>
-            </File>
-            <File>
-              <FileName>Rotation_Service.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Services\Src\Rotation_Service.c</FilePath>
-            </File>
-            <File>
               <FileName>conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\conf.h</FilePath>
@@ -868,10 +875,37 @@
               <FileType>1</FileType>
               <FilePath>..\Drivers\Src\UART_Driver.c</FilePath>
             </File>
+            <File>
+              <FileName>Lib_Com_Periph_2022.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\Drivers\Src\Lib_Com_Periph_2022.lib</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Services</GroupName>
+          <Files>
+            <File>
+              <FileName>Communication_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Communication_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Rotation_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Rotation_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Batterie_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Batterie_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Horloge_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Horloge_Service.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>

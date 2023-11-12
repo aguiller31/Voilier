@@ -1,9 +1,8 @@
 #ifndef HORLOGE_SERVICE
 #define HORLOGE_SERVICE
 #include "stm32f10x.h"
-#include "GPIO_Driver.h"
-#include "TIMER_Driver.h"
-#include "ADC_Driver.h"
+//#include "MyI2C.h"
+
 
 
 typedef struct HorlogeService
