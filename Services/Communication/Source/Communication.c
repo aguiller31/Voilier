@@ -6,6 +6,14 @@ typedef FunctionPointer FunctionArray[128]; //tableaux des 128 fonctions pour le
 
 FunctionArray functionTable[3]; //tableaux des 128 fonctions pour les 3 USART
 
+typedef void (*FunctionPointerBytes)(signed char);
+FunctionPointerBytes functionTableBytes[3];
+
+typedef void (*FunctionPointerDirection)(signed char);
+typedef FunctionPointer FunctionArrayDirection[2]; //tableaux des 2 fonctions pour tribord et babord
+FunctionArray functionTableDirection[3];
+
+
 void setGPIO_communication(GPIO_TypeDef * GPIO, int rx, int tx){
 		MyGPIO_Init(GPIO,tx,AltOut_Ppull); //TX
 		MyGPIO_Init(GPIO,rx,In_Floating); //RX
@@ -25,20 +33,44 @@ void CommunicationService_Start(CommunicationService *This){
 	This->UART->EnableRX(This->UART);
 	This->UART->Start(This->UART);
 }
-void CommunicationService_WriteCharacter(CommunicationService *This, char c){
+void CommunicationService_WriteCharacter(CommunicationService *This, signed char c){
 	This->UART->WriteCharacter(This->UART, c);
 }
 
 //permet d'enregistrer une fonction callback pour chaque caractère recu et pour chaque USART
-void CommunicationService_RegisterRead(CommunicationService *This, char c, void (*function )()) {
+void CommunicationService_RegisterReadChar(CommunicationService *This, signed char c, void (*function )()) {
     functionTable[This->UART_nb][(int)c] = function;
 }
-void Callback(char c, int UART_nb){
-	functionTable[UART_nb][(int)c]();
+void CommunicationService_RegisterReadBytes(CommunicationService *This, void (*function )(signed char)) {
+    functionTableBytes[This->UART_nb] = function;
+}
+void CommunicationService_RegisterReadDirection(CommunicationService *This, int direction, void (*function )(signed char)) {
+    functionTableDirection[This->UART_nb][direction] = function;
+}
+void Callback(signed char c, int UART_nb){
+	if( c >= 0x0 & c <= 0x7F){ // compris entre le char(0) et le char(128)
+		if(functionTable[UART_nb][(int)c]){
+			functionTable[UART_nb][(int)c]();
+		}
+		else if(c > 0 & c <= 100){ // entre 0 et 100
+			functionTableDirection[UART_nb][TRIBORD](c);
+		}
+		else{
+			functionTableBytes[UART_nb](c);
+		}
+	} // caractère non ASCII
+	else{
+		
+		if(c >= -100 & c <= -1){// compris entre -100 et -1
+				functionTableDirection[UART_nb][BABORD](c);
+			}else{ //ce qui est < à -100
+				functionTableBytes[UART_nb](c);
+			}
+		}
 }
 
-void CommunicationService_ReadCharacter(CommunicationService *This){ 
-	void ( * Callback_pointeur ) ( char,int ) ; 
+void CommunicationService_Read(CommunicationService *This){ 
+	void ( * Callback_pointeur ) ( signed char,int ) ; 
 	Callback_pointeur = Callback ;
 	This->UART->ActiveIT(This->UART,0,Callback_pointeur);
 }
@@ -46,8 +78,11 @@ static void  CommunicationService_Init( CommunicationService *This)
 {
 			This->Start = CommunicationService_Start;
 			This->WriteCharacter = CommunicationService_WriteCharacter;
-			This->RegisterRead = CommunicationService_RegisterRead;
-			This->ReadCharacter = CommunicationService_ReadCharacter;
+			This->RegisterReadChar = CommunicationService_RegisterReadChar;
+			This->RegisterReadBytes = CommunicationService_RegisterReadBytes;
+			This->Read = CommunicationService_Read;
+			This->RegisterReadDirection = CommunicationService_RegisterReadDirection;
+	
 }
 void CommunicationService_New_Free(CommunicationService *This)
 {
@@ -61,7 +96,7 @@ void CommunicationService_New_Free(CommunicationService *This)
        CommunicationService_Init(This);
 			 This->Free = CommunicationService_New_Free;
 			 This->UART = New_UART(USART);
-				This->UART_nb = (USART == USART1)?1 : (USART == USART2)? 2 :3;
+			This->UART_nb = (USART == USART1)?1 : (USART == USART2)? 2 :3;
        return This;
 }
 

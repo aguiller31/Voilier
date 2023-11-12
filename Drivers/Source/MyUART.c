@@ -2,7 +2,7 @@
 #include "stm32f10x.h"
 #include <stdlib.h>
 
-typedef void (*UART_Callback_RXpointer)(char, int);
+typedef void (*UART_Callback_RXpointer)(signed char, int);
 UART_Callback_RXpointer UART_Callbacks[3];
 
 void UARTDriver_ClearDR(UARTDriver * This){
@@ -65,23 +65,25 @@ void UARTDriver_Start(UARTDriver * This)
 	This->UART->CR1 |= USART_CR1_UE;
 }
 
-void UARTDriver_WriteCharacter(UARTDriver * This, char character)
+void UARTDriver_WriteCharacter(UARTDriver * This, signed char character)
 {
 		This->ClearDR(This);
 		This->UART->DR = character;
 		while((This->UART->SR & USART_SR_TXE) != USART_SR_TXE){} //polling sur TXE
 }
-void  UARTDriver_ActiveIT(UARTDriver * This , char Prio ,void (*IT_function )(char,int)){
+void  UARTDriver_ActiveIT(UARTDriver * This , char Prio ,void (*IT_function )(signed char,int)){
 		//interruption RX
 	IRQn_Type IRQ_pin;
 	This->UART->CR1 |= USART_CR1_RXNEIE;
 	if(This->UART == USART1){
 		IRQ_pin = USART1_IRQn;
 		UART_Callbacks[0] = IT_function;
-	}else if(This->UART == USART2){
+	}
+	else if(This->UART == USART2){
 		IRQ_pin = USART2_IRQn;
 		UART_Callbacks[1] = IT_function;
-	}else if(This->UART == USART3){
+	}
+	else if(This->UART == USART3){
 		IRQ_pin = USART3_IRQn;
 		UART_Callbacks[2] = IT_function;
 	}
@@ -103,8 +105,6 @@ static void  UARTDriver_Init( UARTDriver *This)
 			This->Start =UARTDriver_Start;
 			This->WriteCharacter =UARTDriver_WriteCharacter;
 			This->ActiveIT =UARTDriver_ActiveIT;
-	
-		
 }
 void UARTDriver_New_Free(UARTDriver *This)
 {
@@ -118,32 +118,31 @@ void UARTDriver_New_Free(UARTDriver *This)
 			 This->Free = UARTDriver_New_Free;
 			 This->UART = USART;
 				if(USART == USART1){
-				RCC->APB2ENR |=RCC_APB2ENR_USART1EN;
-			}else if(USART == USART2){
-				RCC->APB1ENR |=RCC_APB1ENR_USART2EN;
-			}else if(USART == USART3){
-				RCC->APB1ENR |=RCC_APB1ENR_USART3EN;
-			}
-			
+					RCC->APB2ENR |=RCC_APB2ENR_USART1EN;
+				}else if(USART == USART2){
+					RCC->APB1ENR |=RCC_APB1ENR_USART2EN;
+				}else if(USART == USART3){
+					RCC->APB1ENR |=RCC_APB1ENR_USART3EN;
+				}
        return This;
 }
 void USART1_IRQHandler (void)
 {
 	if((USART1->SR & USART_SR_RXNE) == USART_SR_RXNE){ //RX
-			(*UART_Callbacks[0]) (USART1->DR,1);
+			(*UART_Callbacks[0]) ((signed char)USART1->DR,1);
 	} 
 }
 void USART2_IRQHandler (void)
 {
 if((USART2->SR & USART_SR_RXNE) == USART_SR_RXNE){ //RX
-			(*UART_Callbacks[1]) (USART2->DR,2);
+			(*UART_Callbacks[1]) ((signed char)USART2->DR,2);
 	} 
 
 }
 void USART3_IRQHandler (void)
 {
 	if((USART3->SR & USART_SR_RXNE) == USART_SR_RXNE){ //RX
-			(*UART_Callbacks[2]) (USART3->DR,3);
+			(*UART_Callbacks[2]) ((signed char)USART3->DR,3);
 	} 
 }
 /*
