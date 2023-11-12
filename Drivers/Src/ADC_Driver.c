@@ -1,4 +1,4 @@
-#include "MyADC.h"
+#include "ADC_Driver.h"
 void ( * ADC1_Callback_pointeur ) ( int ) ;
 void ( * ADC2_Callback_pointeur ) ( int ) ;
 int ADC1_It = 0;

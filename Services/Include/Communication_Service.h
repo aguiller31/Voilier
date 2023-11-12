@@ -1,8 +1,8 @@
 #ifndef COMMUNICATION_SERVICE
 #define COMMUNICATION_SERVICE
 #include "stm32f10x.h"
-#include "MyUART.h"
-#include "MyGPIO.h"
+#include "UART_Driver.h"
+#include "GPIO_Driver.h"
 
 #define TRIBORD 1
 #define BABORD 0

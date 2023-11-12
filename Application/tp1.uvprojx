@@ -400,26 +400,6 @@
               <FilePath>..\Services\Src\Rotation_Service.c</FilePath>
             </File>
             <File>
-              <FileName>MyADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Source\MyADC.c</FilePath>
-            </File>
-            <File>
-              <FileName>MyGPIO.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Source\MyGPIO.c</FilePath>
-            </File>
-            <File>
-              <FileName>MyTimers.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Source\MyTimers.c</FilePath>
-            </File>
-            <File>
-              <FileName>MyUART.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Source\MyUART.c</FilePath>
-            </File>
-            <File>
               <FileName>conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\conf.h</FilePath>
@@ -430,41 +410,29 @@
           <GroupName>Drivers</GroupName>
           <Files>
             <File>
-              <FileName>MyADC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Drivers\Include\MyADC.h</FilePath>
+              <FileName>ADC_Driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\Src\ADC_Driver.c</FilePath>
             </File>
             <File>
-              <FileName>MyGPIO.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Drivers\Include\MyGPIO.h</FilePath>
+              <FileName>GPIO_Driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\Src\GPIO_Driver.c</FilePath>
             </File>
             <File>
-              <FileName>MyTimers.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Drivers\Include\MyTimers.h</FilePath>
+              <FileName>TIMER_Driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\Src\TIMER_Driver.c</FilePath>
             </File>
             <File>
-              <FileName>MyUART.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Drivers\Include\MyUART.h</FilePath>
+              <FileName>UART_Driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\Src\UART_Driver.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Services</GroupName>
-          <Files>
-            <File>
-              <FileName>Communication_Service.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Services\Include\Communication_Service.h</FilePath>
-            </File>
-            <File>
-              <FileName>Rotation_Service.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Services\Include\Rotation_Service.h</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
@@ -811,7 +779,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\Services\Include;..\Drivers\Source;..\Services\Src;..\Drivers\Include;..\Application</IncludePath>
+              <IncludePath>..\Services\Include;..\Drivers\Src;..\Services\Src;..\Drivers\Include;..\Application</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -829,7 +797,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Drivers\Include;..\Services\Include;..\..\Drivers\Source;..\Services\Src;..\Application</IncludePath>
+              <IncludePath>..\Drivers\Src;..\Services\Include;..\Drivers\Include;..\Services\Src;..\Application</IncludePath>
             </VariousControls>
           </Aads>
           <LDads>
@@ -871,26 +839,6 @@
               <FilePath>..\Services\Src\Rotation_Service.c</FilePath>
             </File>
             <File>
-              <FileName>MyADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Source\MyADC.c</FilePath>
-            </File>
-            <File>
-              <FileName>MyGPIO.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Source\MyGPIO.c</FilePath>
-            </File>
-            <File>
-              <FileName>MyTimers.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Source\MyTimers.c</FilePath>
-            </File>
-            <File>
-              <FileName>MyUART.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Source\MyUART.c</FilePath>
-            </File>
-            <File>
               <FileName>conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\conf.h</FilePath>
@@ -901,41 +849,29 @@
           <GroupName>Drivers</GroupName>
           <Files>
             <File>
-              <FileName>MyADC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Drivers\Include\MyADC.h</FilePath>
+              <FileName>ADC_Driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\Src\ADC_Driver.c</FilePath>
             </File>
             <File>
-              <FileName>MyGPIO.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Drivers\Include\MyGPIO.h</FilePath>
+              <FileName>GPIO_Driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\Src\GPIO_Driver.c</FilePath>
             </File>
             <File>
-              <FileName>MyTimers.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Drivers\Include\MyTimers.h</FilePath>
+              <FileName>TIMER_Driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\Src\TIMER_Driver.c</FilePath>
             </File>
             <File>
-              <FileName>MyUART.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Drivers\Include\MyUART.h</FilePath>
+              <FileName>UART_Driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\Src\UART_Driver.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Services</GroupName>
-          <Files>
-            <File>
-              <FileName>Communication_Service.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Services\Include\Communication_Service.h</FilePath>
-            </File>
-            <File>
-              <FileName>Rotation_Service.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Services\Include\Rotation_Service.h</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>

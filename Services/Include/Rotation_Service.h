@@ -1,8 +1,8 @@
 #ifndef ROTATION_SERVICE
 #define ROTATION_SERVICE
 #include "stm32f10x.h"
-#include "MyGPIO.h"
-#include "MyTimers.h"
+#include "GPIO_Driver.h"
+#include "TIMER_Driver.h"
 #define LEFT 0
 #define RIGHT 1
 
