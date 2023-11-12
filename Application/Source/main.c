@@ -3,14 +3,17 @@
 #include "Communication_Service.h"
 #include "Rotation_Service.h"
 #include "Batterie_Service.h"
+#include "Horloge_Service.h"
 
 void ( * Callback_pointeur_Communication_Babord ) (signed char) ;
 void ( * Callback_pointeur_Communication_Tribord ) (signed char) ;
 void ( * Callback_pointeur_Communication_0 ) () ;
 void ( * Callback_pointeur_Batterie ) (int) ;
+
 CommunicationService * ComSer;
 RotationService * RotSer;
 BatterieService * BatSer;
+HorlogeService * HorSer;
 
 void Callback_Communication_Tribord(signed char val){
 	RotSer->SetDirection(RotSer,RIGHT);
@@ -41,6 +44,9 @@ void setup(){
 	
 	BatSer = New_Batterie();
 	BatSer->Setup(BatSer);
+	
+	HorSer = New_Horloge();
+	HorSer->Setup(HorSer);
 	
 	Callback_pointeur_Communication_Babord = Callback_Communication_Babord ;
 	Callback_pointeur_Communication_Tribord = Callback_Communication_Tribord ;
