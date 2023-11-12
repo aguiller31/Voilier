@@ -3,6 +3,8 @@
 #include "conf.h"
 //CONFIGURATION
 #ifndef CONFIG_H
+#define COMMUNICATION_UART_READ_IT_PRIORITY 3
+	
 #define COMMUNICATION_UART USART1
 #define COMMUNICATION_BAUD_RATE 9600
 #define COMMUNICATION_WORD_LENGTH 1
@@ -115,7 +117,7 @@ void Callback(signed char c, int UART_nb){
 void CommunicationService_Read(CommunicationService *This){ 
 	void ( * Callback_pointeur ) ( signed char,int ) ; 
 	Callback_pointeur = Callback ;
-	This->UART->ActiveIT(This->UART,0,Callback_pointeur);
+	This->UART->ActiveIT(This->UART,COMMUNICATION_UART_READ_IT_PRIORITY,Callback_pointeur);
 }
 static void  CommunicationService_Init( CommunicationService *This)
 {
