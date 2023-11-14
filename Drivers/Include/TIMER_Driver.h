@@ -27,4 +27,9 @@ void MyTimer_PWM( TIM_TypeDef * Timer , char Channel );
 void MyTimer_PWM_init( TIM_TypeDef * Timer , char Channel ,unsigned short ARR, unsigned short PSC );
 void MyTimer_PWM_dutyCycle( TIM_TypeDef * Timer , char Channel,  float alpha);
 
+
+void MyTimer_Config_line_9 (void);
+void MyTimer_Config_line_10 (void);
+void MyTimer_ActiveIT_EXTI (char Prio, int Pin, void (*IT_function)(void));
+
 #endif

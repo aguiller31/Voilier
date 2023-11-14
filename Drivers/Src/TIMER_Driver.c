@@ -133,3 +133,43 @@ void MyTimer_PWM( TIM_TypeDef * Timer , char Channel ){ //il y a 4 channels par 
 		break;
 	}
 	}
+	
+	void MyTimer_Config_line_9 (void) { 
+		//DEfnie comme non masqué le pin 9
+	EXTI->IMR |=	EXTI_IMR_MR9;
+	EXTI->RTSR |=	EXTI_RTSR_TR9;
+	//Definie le mux pour pc9
+	AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI9_PC;
+}
+
+void MyTimer_Config_line_10 (void){
+	//DEfnie comme non masqué le pin 10
+	EXTI->IMR |=	EXTI_IMR_MR10;
+	EXTI->RTSR |=	EXTI_RTSR_TR10;
+	//Definie le mux pour pc10
+	AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI10_PC;
+}
+
+void MyTimer_ActiveIT_EXTI (char Prio, int Pin, void (*IT_function)(void)){
+		if (4 < Pin && Pin < 10){
+			NVIC_SetPriority(EXTI9_5_IRQn, Prio);
+			NVIC_EnableIRQ(EXTI9_5_IRQn);
+			ptrIT_EXTI9_5 = IT_function;
+		}else if (9 < Pin && Pin < 16){
+			NVIC_SetPriority(EXTI15_10_IRQn, Prio);
+			NVIC_EnableIRQ(EXTI15_10_IRQn);
+			ptrIT_EXTI15_10 = IT_function;
+		}
+}
+
+void EXTI9_5_IRQHandler (void){
+	//Remise a 0 de l'interruption a faire
+	EXTI->PR |= EXTI_PR_PR9;
+	(*ptrIT_EXTI9_5) ();
+}
+
+void EXTI15_10_IRQHandler (void){
+	//Remise a 0 de l'interruption a faire
+	EXTI->PR |= EXTI_PR_PR10;
+	(*ptrIT_EXTI15_10) ();
+}
