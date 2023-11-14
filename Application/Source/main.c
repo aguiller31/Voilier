@@ -4,6 +4,13 @@
 #include "Rotation_Service.h"
 #include "Batterie_Service.h"
 #include "Horloge_Service.h"
+/*
+	Informations sur la "Programation Orientée Objet" dans ce programme :
+	Le langage C n'étant pas un langage orienté objet, il a fallut établir des règles de programmation afin d'obtenir une POO proche de la POO traditionelle.
+	Pour ce faire j'ai suivi la norme proposée par le site developpez.com : https://chgi.developpez.com/c/objet/
+	Bien sûr cette norme ne fait qu'approcher la "vraie" POO mais ce choix a été fait pour faciliter le développement, la lisbilité et la maintenance(théorique) de ce code.
+========================================
+*/
 
 void ( * Callback_pointeur_Communication_Babord ) (signed char) ;
 void ( * Callback_pointeur_Communication_Tribord ) (signed char) ;
@@ -67,6 +74,7 @@ void setup(){
 	
 }
 
+// il faut créer une clock pour appeler BatSer->GetBatteryLevel(BatSer); regulièrement 
 
 
 void loop(){

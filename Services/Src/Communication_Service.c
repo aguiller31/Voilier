@@ -13,16 +13,16 @@
 
 
 #define USART1_GPIO GPIOA
-#define USART1_GPIO_RX 10
-#define USART1_GPIO_TX 9
+#define USART1_GPIO_RX_PIN 10
+#define USART1_GPIO_TX_PIN 9
 
 #define USART2_GPIO GPIOA
-#define USART2_GPIO_RX 3
-#define USART2_GPIO_TX 2
+#define USART2_GPIO_RX_PIN 3
+#define USART2_GPIO_TX_PIN 2
 
 #define USART3_GPIO GPIOB
-#define USART3_GPIO_RX 11
-#define USART3_GPIO_TX 10
+#define USART3_GPIO_RX_PIN 11
+#define USART3_GPIO_TX_PIN 10
 
 #define COMMUNICATION_ALERT_ROULIS "Detection Limite du Roulis"
 #define COMMUNICATION_ALERT_BATTERY "Tension de batterie trop faible"
@@ -54,8 +54,8 @@ void setGPIO_communication(GPIO_TypeDef * GPIO, int rx, int tx){
 
 void CommunicationService_Start(CommunicationService *This){
 	GPIO_TypeDef * GPIO = (This->UART_nb == 1)? USART1_GPIO :(This->UART_nb == 2) ? USART2_GPIO : USART3_GPIO;
-	int rx = (This->UART_nb == 1)? USART1_GPIO_RX :(This->UART_nb == 2) ? USART2_GPIO_RX : USART3_GPIO_RX;
-	int tx = (This->UART_nb == 1)? USART1_GPIO_TX :(This->UART_nb == 2) ? USART2_GPIO_TX : USART3_GPIO_TX;
+	int rx = (This->UART_nb == 1)? USART1_GPIO_RX_PIN :(This->UART_nb == 2) ? USART2_GPIO_RX_PIN : USART3_GPIO_RX_PIN;
+	int tx = (This->UART_nb == 1)? USART1_GPIO_TX_PIN :(This->UART_nb == 2) ? USART2_GPIO_TX_PIN : USART3_GPIO_TX_PIN;
 	setGPIO_communication(GPIO,rx,tx);
 	
 	This->UART->SetBaudRate(This->UART, COMMUNICATION_BAUD_RATE);
@@ -92,7 +92,7 @@ void CommunicationService_RegisterReadBytes(CommunicationService *This, void (*f
 void CommunicationService_RegisterReadDirection(CommunicationService *This, int direction, void (*function )(signed char)) {
     functionTableDirection[This->UART_nb][direction] = function;
 }
-void Callback(signed char c, int UART_nb){
+void CommunicationService_Callback(signed char c, int UART_nb){
 	if( c >= 0x0 & c <= 0x7F){ // compris entre le char(0) et le char(128)
 		if(functionTable[UART_nb][(int)c]){
 			functionTable[UART_nb][(int)c]();
@@ -116,7 +116,7 @@ void Callback(signed char c, int UART_nb){
 
 void CommunicationService_Read(CommunicationService *This){ 
 	void ( * Callback_pointeur ) ( signed char,int ) ; 
-	Callback_pointeur = Callback ;
+	Callback_pointeur = CommunicationService_Callback ;
 	This->UART->ActiveIT(This->UART,COMMUNICATION_UART_READ_IT_PRIORITY,Callback_pointeur);
 }
 static void  CommunicationService_Init( CommunicationService *This)

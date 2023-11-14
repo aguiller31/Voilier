@@ -35,7 +35,11 @@ int echantillonnage_hex;
 																	// le problème c'est qu'il semble qu'il faut faire ca à chaque callback
 		Adc->CR2 |= (extsel<<17);
 	Adc->CR2 |= ADC_CR2_ADON;
+	
 			
+}
+void MyADC_SwStart(ADC_TypeDef * Adc){
+	Adc->CR2 |= ADC_CR2_SWSTART;
 }
 void MyADC_ActiveIT(ADC_TypeDef * Adc  ,char Prio,void (*IT_function )(int)){
 	IRQn_Type IRQ_pin;

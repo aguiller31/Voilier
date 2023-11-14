@@ -10,7 +10,7 @@
       <TargetName>Simule</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
+      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARM_Compiler_5.06u7</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Drivers\Include;..\..\Drivers\Source</IncludePath>
+              <IncludePath>..\Drivers\Include;..\Drivers\Src;..\Services\Include;..\ServicesSrc;..\Application</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

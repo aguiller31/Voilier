@@ -9,10 +9,11 @@
 typedef struct BatterieService
 {
 	void(*Free)(struct BatterieService*);
-	void (*SetupADC)(struct BatterieService*);
-	void (*SetupTIMER)(struct BatterieService*);
+
+
 	void (*Setup)(struct BatterieService*);
 	void (*RegisterBatteryLevel)(struct BatterieService*,void (*function )(int));
+	void (*GetBatteryLevel)(struct BatterieService*);
 
 } BatterieService ;
  BatterieService * New_Batterie(void);
