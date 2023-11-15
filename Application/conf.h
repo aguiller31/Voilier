@@ -1,6 +1,16 @@
 #ifndef CONFIG_H
-	#define CONFIG_H
-
+#define CONFIG_H
+	//GENERAL
+	//SYSTICK
+	#define SYSTICK_SIZE 10
+	#define SYSTICK_RAZ_INTERVAL 5*60 //RAZ ttes les 5 minutes
+	
+	#define SYSTICK_TIMER_IT_PRIORITY 1
+	
+	#define SYSTICK_TIMER TIM1
+	#define SYSTICK_TIMER_ARR			1000-1
+	#define SYSTICK_TIMER_PSC			36000-1
+	
 	//ROTATION
 	#define ROTATION_DIRECTION_GPIO 			GPIOC
 	#define ROTATION_DIRECTION_GPIO_PIN		10
@@ -40,6 +50,9 @@
 	#define COMMUNICATION_ALERT_BATTERY "Tension de batterie trop faible"
 	
 	//BATTERIE
+	#define BATTERIE_SYSTIC_PERIOD 3
+	#define BATTERIE_LOW_LEVEL	10
+	
 	#define BATTERIE_ADC_IT_PRIORITY 1
 	
 	#define BATTERIE_ADC 			ADC1
@@ -48,9 +61,7 @@
 	#define BATTERIE_ADC_TRIGGER 0x7
 	#define BATTERIE_ADC_CC_VALUE 499
 	
-	#define BATTERIE_TIMER_ARR			16000-1
-	#define BATTERIE_TIMER_PSC			1000-1
-	
 	#define BATTERIE_GPIO	GPIOA
 	#define BATTERIE_GPIO_PIN	0
+	
 #endif

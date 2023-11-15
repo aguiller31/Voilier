@@ -10,31 +10,51 @@
 #define ALERT_DLR 0
 #define ALERT_LOW_BATTERY 1
 
+// Structure décrivant l'interface du service de communication
 typedef struct CommunicationService
 {
-	void(*Free)(struct CommunicationService*);
-	void (*Start)(struct CommunicationService*);
-	void (*WriteCharacter)(struct CommunicationService*, char);
-	void (*WriteString)(struct CommunicationService*,  char*);
-	void (*WriteStringNL)(struct CommunicationService*,  char*);
-	void (*SendAlert)(struct CommunicationService*, int);
-	void (*SendNewLine)(struct CommunicationService*);
-	void (*RegisterReadChar)(struct CommunicationService*, signed char,void (*function )());
-	void (*RegisterReadBytes)(struct CommunicationService*,void (*function )(signed char));
-	void (*RegisterReadDirection)(struct CommunicationService*,int,void (*function )(signed char));
-	void (*Read)(struct CommunicationService*);
-	
-	UARTDriver * UART;
-	int UART_nb;
-} CommunicationService ;
- CommunicationService * New_Communication(void);
+    // Fonction pour libérer la mémoire allouée pour l'instance du service de communication
+    void (*Free)(struct CommunicationService*);
 
+    // Fonction pour démarrer le service de communication
+    void (*Start)(struct CommunicationService*);
 
-/*
-void init_communication(USART_TypeDef *);
-void write_communication(char);
-void registerFunction_communication(char, void (*function )());
-void read_communication(void);
-int get_Pupitre_Adress(int);
-*/
+    // Fonction pour écrire un caractère par l'UART
+    void (*WriteCharacter)(struct CommunicationService*, char);
+
+    // Fonction pour écrire une chaîne de caractères par l'UART
+    void (*WriteString)(struct CommunicationService*, char*);
+
+    // Fonction pour écrire une chaîne de caractères suivie d'une nouvelle ligne par l'UART
+    void (*WriteStringNL)(struct CommunicationService*, char*);
+
+    // Fonction pour envoyer un message d'alerte par l'UART
+    void (*SendAlert)(struct CommunicationService*, int);
+
+    // Fonction pour envoyer une nouvelle ligne par l'UART
+    void (*SendNewLine)(struct CommunicationService*);
+
+    // Fonction pour enregistrer une fonction callback pour chaque caractère reçu
+    void (*RegisterReadChar)(struct CommunicationService*, signed char, void (*function)());
+
+    // Fonction pour enregistrer une fonction callback pour la réception de bytes
+    void (*RegisterReadBytes)(struct CommunicationService*, void (*function)(signed char));
+
+    // Fonction pour enregistrer une fonction callback pour la réception de direction
+    void (*RegisterReadDirection)(struct CommunicationService*, int, void (*function)(signed char));
+
+    // Fonction pour configurer le service de communication pour la lecture
+    void (*Read)(struct CommunicationService*);
+
+    // Pointeur vers l'instance du driver UART utilisé par le service
+    UARTDriver * UART;
+
+    // Numéro de l'UART utilisé par le service
+    int UART_nb;
+
+} CommunicationService;
+
+// Fonction pour créer une nouvelle instance du service de communication
+CommunicationService *New_Communication(void);
+
 #endif

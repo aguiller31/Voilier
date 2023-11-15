@@ -3,26 +3,34 @@
 #include "stm32f10x.h"
 #include "GPIO_Driver.h"
 #include "TIMER_Driver.h"
+
 #define LEFT 0
 #define RIGHT 1
 
+// Structure décrivant l'interface du service de rotation
 typedef struct RotationService
 {
-	void(*Free)(struct RotationService*);
-	void (*Setup)(struct RotationService*);
-	void (*SetupDirection)(struct RotationService*);
-	void (*SetDirection)(struct RotationService*, int);
-	void (*SetupSpeed)(struct RotationService*);
-	void (*SetSpeed)(struct RotationService*, float);
+    // Fonction pour libérer la mémoire allouée pour l'instance du service de rotation
+    void (*Free)(struct RotationService*);
 
-} RotationService ;
- RotationService * New_Rotation(void);
+    // Fonction pour configurer le service de rotation
+    void (*Setup)(struct RotationService*);
 
-/*
-void rotation_sens_setup(GPIO_TypeDef * GPIO, char pin_sens);
-void rotation_sens(int sens);
-void rotation_vitesse_setup(TIM_TypeDef * Timer , char Channel,GPIO_TypeDef * GPIO, char pin);
-void rotation_vitesse(float vitesse);
-void rotation_start();
-*/
+    // Fonction pour configurer la direction de rotation
+    void (*SetupDirection)(struct RotationService*);
+
+    // Fonction pour définir la direction de rotation
+    void (*SetDirection)(struct RotationService*, int);
+
+    // Fonction pour configurer la vitesse de rotation
+    void (*SetupSpeed)(struct RotationService*);
+
+    // Fonction pour définir la vitesse de rotation
+    void (*SetSpeed)(struct RotationService*, float);
+
+} RotationService;
+
+// Fonction pour créer une nouvelle instance du service de rotation
+RotationService *New_Rotation(void);
+
 #endif

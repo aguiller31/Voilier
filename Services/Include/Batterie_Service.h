@@ -5,17 +5,24 @@
 #include "TIMER_Driver.h"
 #include "ADC_Driver.h"
 
-
+// Structure décrivant l'interface du service de batterie
 typedef struct BatterieService
 {
-	void(*Free)(struct BatterieService*);
+    // Fonction pour libérer la mémoire allouée pour l'instance du service de batterie
+    void (*Free)(struct BatterieService*);
 
+    // Fonction pour configurer le service de batterie
+    void (*Setup)(struct BatterieService*);
 
-	void (*Setup)(struct BatterieService*);
-	void (*RegisterBatteryLevel)(struct BatterieService*,void (*function )(int));
-	void (*GetBatteryLevel)(struct BatterieService*);
+    // Fonction pour enregistrer la fonction de rappel du niveau de batterie
+    void (*RegisterBatteryLevel)(struct BatterieService*, void (*function)(int));
 
-} BatterieService ;
- BatterieService * New_Batterie(void);
+    // Fonction pour obtenir le niveau de batterie
+    void (*GetBatteryLevel)(struct BatterieService*);
+
+} BatterieService;
+
+// Fonction pour créer une nouvelle instance du service de batterie
+BatterieService* New_Batterie(void);
 
 #endif
