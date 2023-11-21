@@ -5,6 +5,6 @@
 #include "MySPI.h"
 
 void Accelero_Init (SPI_TypeDef * SPI);
-char MySPI_Read(void);
+//char MySPI_Read(void);
 
 #endif
