@@ -453,6 +453,16 @@
               <FileType>1</FileType>
               <FilePath>..\Services\Src\Systick_Service.c</FilePath>
             </File>
+            <File>
+              <FileName>Bordage_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Bordage_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Girouette_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Girouette_Service.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -912,6 +922,16 @@
               <FileName>Systick_Service.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Services\Src\Systick_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Bordage_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Bordage_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Girouette_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Girouette_Service.c</FilePath>
             </File>
           </Files>
         </Group>

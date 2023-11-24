@@ -5,6 +5,8 @@
 #include "Rotation_Service.h"
 #include "Batterie_Service.h"
 #include "Horloge_Service.h"
+#include "Girouette_Service.h"
+#include "Bordage_Service.h"
 /*
 	Informations sur la "Programation Orientée Objet" dans ce programme :
 	Le langage C n'étant pas un langage orienté objet, il a fallut établir des règles de programmation afin d'obtenir une POO proche de la POO traditionelle.
@@ -35,7 +37,7 @@ void Callback_Systick_GetBattery(int time)
 void Callback_Systick_Bordage(int time)
 {
 	if(time%BORDAGE_SYSTIC_PERIOD ==0){
-		//leur fonction
+		bordage();
 	}
 }
 void Callback_Communication_Tribord(signed char val){
@@ -94,7 +96,9 @@ void setup(){
 	
 	SysSer->Register(SysSer,Callback_pointeur_Systick_GetBattery); //pour toutes les 3sec
 	SysSer->Register(SysSer,Callback_pointeur_Systick_Bordage); //pour toutes les 20 ms
-
+	
+	InitGirouette();
+	InitBordage();
 	SysSer->Start(SysSer);
 	
 }

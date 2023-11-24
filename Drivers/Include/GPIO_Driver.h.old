@@ -17,7 +17,5 @@ int MyGPIO_Set(GPIO_TypeDef * GPIO, char GPIO_Pin);
 int MyGPIO_Reset(GPIO_TypeDef * GPIO, char GPIO_Pin);
 int MyGPIO_Toggle(GPIO_TypeDef * GPIO, char GPIO_Pin);
 
-#define MyGPIO_Active_IT RCC->APB2ENR |= RCC_APB2ENR_AFIOEN; 
-
 
 #endif
