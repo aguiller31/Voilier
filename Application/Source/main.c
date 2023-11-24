@@ -30,6 +30,7 @@ RotationService * RotSer;
 BatterieService * BatSer;
 HorlogeService * HorSer;
 
+
 void Callback_Systick_GetAngleGirouette(int time)
 {
 	if(time%GIROUETTE_SYSTIC_PERIOD ==0)

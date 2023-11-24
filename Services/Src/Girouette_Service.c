@@ -12,7 +12,7 @@ void Remise_zero(void){
 
 	
 void Increment(void){
-	if(MyGPIO_Read(GPIOC,8)!=0){
+	if(MyGPIO_Read(GIROUETTE_SIGNAL_B_GPIO,GIROUETTE_SIGNAL_B_GPIO_PIN)!=0){
 		angle_girouette += 1;
 	} else {
 		angle_girouette += -1;
@@ -26,15 +26,15 @@ int getAngleGirouette(){
 }
 void InitGirouette(void){
 	// Configuration PC 10 : Input Floating A
-  MyGPIO_Init(GPIOC, 10, In_Floating);
+  MyGPIO_Init(GIROUETTE_SIGNAL_A_GPIO, GIROUETTE_SIGNAL_A_GPIO_PIN, In_Floating);
 	// Configuration PC 8 : Input Floating B
-	MyGPIO_Init(GPIOC, 8, In_Floating);
+	MyGPIO_Init(GIROUETTE_SIGNAL_B_GPIO, GIROUETTE_SIGNAL_B_GPIO_PIN, In_Floating);
 	// Configuration PC 9 : Input Floating I
-	MyGPIO_Init(GPIOC, 9, In_Floating);
+	MyGPIO_Init(GIROUETTE_SIGNAL_RST_GPIO, GIROUETTE_SIGNAL_RST_GPIO_PIN, In_Floating);
 
 		
 	//Active la clock
-	MyGPIO_Active_IT;
+	MyGPIO_Active_IT; // ??????
 	
 	MyTimer_Config_line_9();
 	MyTimer_Config_line_10();
