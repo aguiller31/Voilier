@@ -61,10 +61,10 @@ void UARTDriver_DisableRX(UARTDriver *This)
 }
 
 /**
- * @brief Définit le taux de bauds de l'UART.
+ * @brief Définit bauds rate de l'UART.
  * 
  * @param This Pointeur vers la structure UARTDriver.
- * @param br   Taux de bauds.
+ * @param br   baud rate
  */
 void UARTDriver_SetBaudRate(UARTDriver *This, int br)
 {
@@ -73,10 +73,10 @@ void UARTDriver_SetBaudRate(UARTDriver *This, int br)
 }
 
 /**
- * @brief Définit le nombre d'arrêts de bits de l'UART.
+ * @brief Définit le nombre de bits de stop de l'UART.
  * 
  * @param This Pointeur vers la structure UARTDriver.
- * @param sb   Nombre d'arrêts de bits.
+ * @param sb   Nombre de bits de stop
  */
 void UARTDriver_SetStopBits(UARTDriver *This, double sb)
 {
