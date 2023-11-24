@@ -10,7 +10,7 @@
 #include "Girouette_Service.h"
 #include "Bordage_Service2.h"
 #include <stdlib.h>
-
+#include <stdio.h>
 
 
 // Structure décrivant l'interface du service de Bordage

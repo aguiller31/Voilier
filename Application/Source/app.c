@@ -28,6 +28,17 @@ void Callback_Systick_Bordage(int time)
 		BorSer->Change(BorSer,main_angle_girouette);
 	}
 }
+void Callback_Systick_Infos(int time)
+{
+	char * angle;
+	if(time%300 ==0){//toutes les 3 secondes on envoie l’information de bordage en cours, cad l’angle d’ouverture de voile 
+		ComSer->WriteString(ComSer,"Angle d'ouverture de voile : ");
+		sprintf(angle, "%d", BorSer->GetTeta(BorSer));
+		ComSer->WriteString(ComSer,angle);
+		ComSer->WriteStringNL(ComSer," degres.");
+	}
+}
+
 void Callback_Communication_Tribord(signed char val){
 	RotSer->SetDirection(RotSer,RIGHT);
 	RotSer->SetSpeed(RotSer,(int)val);

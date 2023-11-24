@@ -15,6 +15,7 @@ typedef struct BordageService
     // Fonction pour démarrer le service de Bordage
     void (*Setup)(struct BordageService*);
 		void (*Change)(struct BordageService*,int);
+		int (*GetTeta)(struct BordageService*);
 		float teta;
 		float duty_cycle;
 

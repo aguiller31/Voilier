@@ -50,7 +50,7 @@
 	#define COMMUNICATION_ALERT_BATTERY "Tension de batterie trop faible"
 	
 	//BATTERIE
-	#define BATTERIE_SYSTIC_PERIOD 300
+	#define BATTERIE_SYSTIC_PERIOD 10 //toutes les 10 ms, on mesure la batterie
 	#define BATTERIE_LOW_LEVEL	10
 	
 	#define BATTERIE_ADC_IT_PRIORITY 1

@@ -34,6 +34,9 @@ void BordageService_Change(BordageService *This, int angle_girouette)
 			}
 		}
 }
+int BordageService_GetTeta(BordageService *This){
+	return This->teta;
+}
 /**
  * @brief Initialise l'instance du service de Bordage.
  * 
@@ -43,6 +46,7 @@ static void BordageService_Init(BordageService *This)
 {
 	This->Setup = BordageService_Setup;
 	This->Change = BordageService_Change;
+	This->GetTeta = BordageService_GetTeta;
 }
 
 /**
