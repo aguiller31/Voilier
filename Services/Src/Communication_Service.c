@@ -139,7 +139,7 @@ void CommunicationService_SendAlert(CommunicationService *This, int n){
  * @param function Fonction callback.
  */
 void CommunicationService_RegisterReadChar(CommunicationService *This, signed char c, void (*function)()) {
-    functionTable[This->UART_nb][(int)c] = function;
+    functionTable[This->UART_nb-1][(int)c] = function;
 }
 
 /**
@@ -149,7 +149,7 @@ void CommunicationService_RegisterReadChar(CommunicationService *This, signed ch
  * @param function Fonction callback.
  */
 void CommunicationService_RegisterReadBytes(CommunicationService *This, void (*function)(signed char)) {
-    functionTableBytes[This->UART_nb] = function;
+    functionTableBytes[This->UART_nb-1] = function;
 }
 
 /**
@@ -160,7 +160,7 @@ void CommunicationService_RegisterReadBytes(CommunicationService *This, void (*f
  * @param function Fonction callback.
  */
 void CommunicationService_RegisterReadDirection(CommunicationService *This, int direction, void (*function)(signed char)) {
-    functionTableDirection[This->UART_nb][direction] = function;
+    functionTableDirection[This->UART_nb-1][direction] = function;
 }
 
 /**
@@ -170,22 +170,46 @@ void CommunicationService_RegisterReadDirection(CommunicationService *This, int 
  * @param UART_nb Numéro de l'UART.
  */
 void CommunicationService_Callback(signed char c, int UART_nb){
-	if( c >= 0x0 & c <= 0x7F){ // compris entre le char(0) et le char(128)
-		if(functionTable[UART_nb][(int)c]){
-			functionTable[UART_nb][(int)c]();
+	int n =c;
+	if(n > 0 & n <= 100){ // entre 0 et 100
+			if(functionTableDirection[UART_nb-1]){
+				if(functionTableDirection[UART_nb-1][BABORD]){
+					functionTableDirection[UART_nb-1][BABORD](c);
+				}
+			}
+			
 		}
-		else if(c > 0 & c <= 100){ // entre 0 et 100
-			functionTableDirection[UART_nb][TRIBORD](c);
+		else if(c >=0xFFFFFF9C & c <=0xFFFFFFFF){ // entre 0 et 100
+			if(functionTableDirection[UART_nb-1]){
+				if(functionTableDirection[UART_nb-1][TRIBORD]){
+					functionTableDirection[UART_nb-1][TRIBORD](256-c);
+				}
+			}
 		}
-		else{
-			functionTableBytes[UART_nb](c);
+	else if( c >= 0x0 & c <= 0x7F){ // compris entre le char(0) et le char(128)
+			if(functionTable[UART_nb-1]){
+		if(functionTable[UART_nb-1][(int)c]){
+			functionTable[UART_nb-1][(int)c]();
+		}
+	}
+		
+		else if(functionTableBytes[UART_nb-1]){
+			functionTableBytes[UART_nb-1](c);
 		}
 	} // caractère non ASCII
 	else{
 		if(c >= -100 & c <= -1){ // compris entre -100 et -1
-			functionTableDirection[UART_nb][BABORD](c*(-1));
+			
+			if(functionTableDirection[UART_nb-1]){
+				if(functionTableDirection[UART_nb-1][BABORD]){
+					functionTableDirection[UART_nb-1][BABORD](c*(-1));
+				}
+			}
+			
 		}else{ //ce qui est < à -100
-			functionTableBytes[UART_nb](c);
+				if(functionTableBytes[UART_nb-1]){
+			functionTableBytes[UART_nb-1](c);
+				}
 		}
 	}
 }

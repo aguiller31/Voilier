@@ -69,9 +69,12 @@ void UARTDriver_DisableRX(UARTDriver *This)
 void UARTDriver_SetBaudRate(UARTDriver *This, int br)
 {
     // Seul USART1 est horodaté avec PCLK2 (72 MHz Max). Les autres USART sont horodatés avec PCLK1 (36 MHz Max).
-    float usart_div = (72.0 * 1000000.0) / (((This->UART == USART1) ? 1.0 : 2.0) * 16 * (float)br);
-    This->UART->BRR &= ~0xFFF1;
-    This->UART->BRR |= ((int)usart_div << 4);
+    //float usart_div = (72.0 * 1000000.0) / (((This->UART == USART1) ? 1.0 : 2.0) * 16 * (float)br);
+	  This->UART->BRR=(72.0 * 1000000.0) / (((This->UART == USART1) ? 1.0 : 2.0)  * (float)br);
+	
+   // This->UART->BRR &= ~0xFFF1;
+  //  This->UART->BRR = ((usart_div);
+	//  This->UART->BRR=36000000/ br;
 }
 
 /**
@@ -151,7 +154,7 @@ void UARTDriver_Start(UARTDriver *This)
  */
 void UARTDriver_WriteCharacter(UARTDriver *This, char character)
 {
-    This->ClearDR(This);
+    //This->ClearDR(This);
     This->UART->DR = character;
     while ((This->UART->SR & USART_SR_TXE) != USART_SR_TXE)
     {

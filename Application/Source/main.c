@@ -18,7 +18,7 @@ void ( * Callback_pointeur_Communication_Babord ) (signed char) ;
 void ( * Callback_pointeur_Communication_Tribord ) (signed char) ;
 void ( * Callback_pointeur_Communication_0 ) () ;
 void ( * Callback_pointeur_Batterie ) (int) ;
-
+void ( * Callback_pointeur_Systick_HelloWorld ) (int) ;
 SystickService * SysSer;
 CommunicationService * ComSer;
 RotationService * RotSer;
@@ -48,6 +48,11 @@ void Callback_Batterie(int battery_level){
 		ComSer->SendAlert(ComSer,ALERT_LOW_BATTERY);
 	}
 }
+void Callback_Systick_HelloWorld(int time){
+		if(time%BATTERIE_SYSTIC_PERIOD ==0){
+	ComSer->WriteStringNL(ComSer, "Test de String avec new line fonction");
+	}
+}
 void setup(){
  
 	SysSer = New_Systick();
@@ -67,6 +72,9 @@ void setup(){
 	HorSer->Setup(HorSer);
 	
 	Callback_pointeur_Systick_GetBattery = Callback_Systick_GetBattery;
+	
+	Callback_pointeur_Systick_HelloWorld = Callback_Systick_HelloWorld;
+	
 	Callback_pointeur_Communication_Babord = Callback_Communication_Babord ;
 	Callback_pointeur_Communication_Tribord = Callback_Communication_Tribord ;
 	Callback_pointeur_Communication_0 = Callback_Communication_0 ;
@@ -74,17 +82,21 @@ void setup(){
 
 	ComSer->RegisterReadDirection(ComSer,BABORD,Callback_pointeur_Communication_Babord);
 	ComSer->RegisterReadDirection(ComSer,TRIBORD,Callback_pointeur_Communication_Tribord);
-	ComSer->RegisterReadChar(ComSer,'0',Callback_pointeur_Communication_0);
+	ComSer->RegisterReadChar(ComSer,0,Callback_pointeur_Communication_0);
+	
 	ComSer->Read(ComSer);
 	
 	BatSer->RegisterBatteryLevel(BatSer,Callback_pointeur_Batterie);
 	
 	SysSer->Register(SysSer,Callback_pointeur_Systick_GetBattery); //pour toutes les 3sec
+	
+	SysSer->Register(SysSer,Callback_pointeur_Systick_HelloWorld);
 	SysSer->Start(SysSer);
 	
 	ComSer->WriteString(ComSer, "Test de String avec new line integre \r\n");
 	ComSer->SendNewLine(ComSer);
-	ComSer->WriteStringNL(ComSer, "Test de String avec new line fonction");
+	
+	
 	
 }
 
@@ -92,7 +104,12 @@ void setup(){
 
 
 void loop(){
-
+	/*
+	int i;
+	ComSer->WriteCharacter(ComSer,'A');
+	for (i=0;i<100000;i++)
+	  {
+		}*/
 }
 
 int main (void)

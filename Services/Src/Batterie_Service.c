@@ -46,6 +46,7 @@ void BatterieService_Callback(int nbre)
 void BatterieService_Setup(BatterieService *This)
 { 
 	void ( * BatterieService_Callback_pointeur ) ( int ) ; /* Pointeur de fonction */
+	MyGPIO_Init(BATTERIE_GPIO, BATTERIE_GPIO_PIN, In_Analog);
 	MyADC_Base_Init(BATTERIE_ADC, BATTERIE_ADC_CHANNEL,BATTERIE_ADC_SAMPLING,SW_EVENT );
 	BatterieService_Callback_pointeur = BatterieService_Callback ; /* Affectation */
 	MyADC_ActiveIT(BATTERIE_ADC,BATTERIE_ADC_IT_PRIORITY,BatterieService_Callback_pointeur);
