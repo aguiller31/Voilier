@@ -14,6 +14,7 @@
 */
 
 void ( * Callback_pointeur_Systick_GetBattery ) (int) ;
+void ( * Callback_pointeur_Systick_Bordage ) (int) ;
 void ( * Callback_pointeur_Communication_Babord ) (signed char) ;
 void ( * Callback_pointeur_Communication_Tribord ) (signed char) ;
 void ( * Callback_pointeur_Communication_0 ) () ;
@@ -25,11 +26,18 @@ RotationService * RotSer;
 BatterieService * BatSer;
 HorlogeService * HorSer;
 
-void Callback_Systick_GetBattery(int time){
+void Callback_Systick_GetBattery(int time)
+{
 	if(time%BATTERIE_SYSTIC_PERIOD ==0)
 		BatSer->GetBatteryLevel(BatSer);
 }
 
+void Callback_Systick_Bordage(int time)
+{
+	if(time%BORDAGE_SYSTIC_PERIOD ==0){
+		//leur fonction
+	}
+}
 void Callback_Communication_Tribord(signed char val){
 	RotSer->SetDirection(RotSer,RIGHT);
 	RotSer->SetSpeed(RotSer,(int)val);
@@ -48,11 +56,7 @@ void Callback_Batterie(int battery_level){
 		ComSer->SendAlert(ComSer,ALERT_LOW_BATTERY);
 	}
 }
-void Callback_Systick_HelloWorld(int time){
-		if(time%BATTERIE_SYSTIC_PERIOD ==0){
-	ComSer->WriteStringNL(ComSer, "Test de String avec new line fonction");
-	}
-}
+
 void setup(){
  
 	SysSer = New_Systick();
@@ -72,8 +76,8 @@ void setup(){
 	HorSer->Setup(HorSer);
 	
 	Callback_pointeur_Systick_GetBattery = Callback_Systick_GetBattery;
-	
-	Callback_pointeur_Systick_HelloWorld = Callback_Systick_HelloWorld;
+	Callback_pointeur_Systick_Bordage = Callback_Systick_Bordage;
+
 	
 	Callback_pointeur_Communication_Babord = Callback_Communication_Babord ;
 	Callback_pointeur_Communication_Tribord = Callback_Communication_Tribord ;
@@ -89,28 +93,13 @@ void setup(){
 	BatSer->RegisterBatteryLevel(BatSer,Callback_pointeur_Batterie);
 	
 	SysSer->Register(SysSer,Callback_pointeur_Systick_GetBattery); //pour toutes les 3sec
-	
-	SysSer->Register(SysSer,Callback_pointeur_Systick_HelloWorld);
+	SysSer->Register(SysSer,Callback_pointeur_Systick_Bordage); //pour toutes les 20 ms
+
 	SysSer->Start(SysSer);
 	
-	ComSer->WriteString(ComSer, "Test de String avec new line integre \r\n");
-	ComSer->SendNewLine(ComSer);
-	
-	
-	
 }
 
-// il faut créer une clock pour appeler BatSer->GetBatteryLevel(BatSer); regulièrement 
-
-
-void loop(){
-	/*
-	int i;
-	ComSer->WriteCharacter(ComSer,'A');
-	for (i=0;i<100000;i++)
-	  {
-		}*/
-}
+void loop(){}
 
 int main (void)
 {
