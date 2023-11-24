@@ -29,6 +29,7 @@ typedef struct Application
 		void ( * Callback_pointeur_Systick_GetBattery ) (int) ;
 		void ( * Callback_pointeur_Systick_Bordage ) (int) ;
 		void ( * Callback_pointeur_Systick_GetAngleGirouette) (int) ;
+		void ( * Callback_pointeur_Systick_Infos) (int) ;
 
 		//Callbacks Rotation
 		void ( * Callback_pointeur_Communication_Babord ) (signed char) ;

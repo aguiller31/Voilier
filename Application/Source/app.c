@@ -84,6 +84,7 @@ static void SetupCallbacks(Application *This)
 	This->Callback_pointeur_Systick_GetBattery = Callback_Systick_GetBattery;
 	This->Callback_pointeur_Systick_Bordage = Callback_Systick_Bordage;
 	This->Callback_pointeur_Systick_GetAngleGirouette = Callback_Systick_GetAngleGirouette;
+	This->Callback_pointeur_Systick_Infos = Callback_Systick_Infos;
 	
 	//ROTATION
 	This->Callback_pointeur_Communication_Babord = Callback_Communication_Babord ;
@@ -113,6 +114,7 @@ static void StartSystick(Application *This)
 	SysSer->Register(SysSer,This->Callback_pointeur_Systick_GetBattery); //pour toutes les 3sec
 	SysSer->Register(SysSer,This->Callback_pointeur_Systick_Bordage); //pour toutes les 20 ms
 	SysSer->Register(SysSer,This->Callback_pointeur_Systick_GetAngleGirouette);
+	SysSer->Register(SysSer,This->Callback_pointeur_Systick_Infos);
 	SysSer->Start(SysSer);
 }
 void Application_Setup(Application *This)
