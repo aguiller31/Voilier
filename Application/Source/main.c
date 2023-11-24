@@ -14,9 +14,11 @@
 	Bien sûr cette norme ne fait qu'approcher la "vraie" POO mais ce choix a été fait pour faciliter le développement, la lisbilité et la maintenance(théorique) de ce code.
 ========================================
 */
-
+int main_angle_girouette;
 void ( * Callback_pointeur_Systick_GetBattery ) (int) ;
 void ( * Callback_pointeur_Systick_Bordage ) (int) ;
+void ( * Callback_pointeur_Systick_GetAngleGirouette) (int) ;
+
 void ( * Callback_pointeur_Communication_Babord ) (signed char) ;
 void ( * Callback_pointeur_Communication_Tribord ) (signed char) ;
 void ( * Callback_pointeur_Communication_0 ) () ;
@@ -28,6 +30,11 @@ RotationService * RotSer;
 BatterieService * BatSer;
 HorlogeService * HorSer;
 
+void Callback_Systick_GetAngleGirouette(int time)
+{
+	if(time%GIROUETTE_SYSTIC_PERIOD ==0)
+		main_angle_girouette=getAngleGirouette();
+}
 void Callback_Systick_GetBattery(int time)
 {
 	if(time%BATTERIE_SYSTIC_PERIOD ==0)
@@ -37,7 +44,7 @@ void Callback_Systick_GetBattery(int time)
 void Callback_Systick_Bordage(int time)
 {
 	if(time%BORDAGE_SYSTIC_PERIOD ==0){
-		bordage();
+		bordage(main_angle_girouette);
 	}
 }
 void Callback_Communication_Tribord(signed char val){
@@ -79,7 +86,7 @@ void setup(){
 	
 	Callback_pointeur_Systick_GetBattery = Callback_Systick_GetBattery;
 	Callback_pointeur_Systick_Bordage = Callback_Systick_Bordage;
-
+	Callback_pointeur_Systick_GetAngleGirouette = Callback_Systick_GetAngleGirouette;
 	
 	Callback_pointeur_Communication_Babord = Callback_Communication_Babord ;
 	Callback_pointeur_Communication_Tribord = Callback_Communication_Tribord ;
@@ -96,6 +103,8 @@ void setup(){
 	
 	SysSer->Register(SysSer,Callback_pointeur_Systick_GetBattery); //pour toutes les 3sec
 	SysSer->Register(SysSer,Callback_pointeur_Systick_Bordage); //pour toutes les 20 ms
+	SysSer->Register(SysSer,Callback_pointeur_Systick_GetAngleGirouette);
+	
 	
 	InitGirouette();
 	InitBordage();

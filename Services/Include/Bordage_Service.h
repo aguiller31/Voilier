@@ -6,6 +6,6 @@ extern float teta;
 extern float duty_cycle;
 
 void InitBordage(void);
-void bordage(void);
+void bordage(int);
 
 #endif

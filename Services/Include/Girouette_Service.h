@@ -7,8 +7,8 @@ extern int angle_girouette;
 void Remise_zero(void);
 void Increment(void);
 void InitGirouette(void);
-void setAngle(int val);
-int getAngle(void);
+
+int getAngleGirouette(void);
 
 #endif
 

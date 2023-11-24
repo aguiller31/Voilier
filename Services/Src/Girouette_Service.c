@@ -2,7 +2,7 @@
 #include "GPIO_Driver.h"
 #include "TIMER_Driver.h"
 #include "stm32f10x.h"
-
+#include "conf.h"
 
 int angle_girouette = 0;
 
@@ -21,7 +21,9 @@ void Increment(void){
 		}
 	}	
 }
-
+int getAngleGirouette(){
+	return angle_girouette;
+}
 void InitGirouette(void){
 	// Configuration PC 10 : Input Floating A
   MyGPIO_Init(GPIOC, 10, In_Floating);
