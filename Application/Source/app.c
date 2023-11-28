@@ -22,14 +22,14 @@ void Callback_Systick_Bordage(int time)
 	if(time%BORDAGE_SYSTIC_PERIOD ==0){
 		angle_roulis=Angle_Roulis(ACCELERO_SPI);
 		if(	angle_roulis==1){ //chavriement
+			ComSer->WriteStringNL(ComSer,"Chavirement.");
 			BorSer->Lacher(BorSer);
 		}else{
-			angle_girouette=getAngleGirouette();
+			angle_girouette=getAngleGirouette2();
 			BorSer->Change(BorSer,angle_girouette);
 		}
 		
-		/*angle_girouette=getAngleGirouette();
-			BorSer->Change(BorSer,angle_girouette);*/
+		
 	}
 		
 }
@@ -37,7 +37,14 @@ void Callback_Systick_Infos(int time)
 {
 	char angle[10];
 	if(time%300 ==0){//toutes les 3 secondes on envoie l’information de bordage en cours, cad l’angle d’ouverture de voile 
-		ComSer->WriteString(ComSer,"Angle d'ouverture de voile : ");
+		char * T = Get_Time();
+		sprintf(angle, "%c", T[2]);
+		ComSer->WriteCharacter(ComSer,angle);
+		ComSer->WriteCharacter(ComSer,':');
+		ComSer->WriteCharacter(ComSer,T[1]);
+		ComSer->WriteCharacter(ComSer,':');
+		ComSer->WriteCharacter(ComSer,T[0]);
+		ComSer->WriteString(ComSer," - Angle d'ouverture de voile : ");
 		sprintf(angle, "%d", BorSer->GetTeta(BorSer));
 		ComSer->WriteString(ComSer,angle);
 		ComSer->WriteStringNL(ComSer," degres.");
@@ -64,10 +71,12 @@ void Callback_Batterie(int battery_level){
 }
 static void SetupServices(Application *This)
 {
+	Set_Time();
 	SysSer = New_Systick();
 	SysSer->Setup(SysSer);
 	
 	Accelero_Init(ACCELERO_SPI);
+	
 	
 	ComSer = New_Communication();
 	ComSer->Start(ComSer);
@@ -117,7 +126,8 @@ static void StartBatteryWatch(Application *This)
 }
 static void StartGirouetteWatch(Application *This)
 {
-	InitGirouette();
+	InitGirouette2(GIROUETTE_TIMER);
+	TIMER_BASE_START(GIROUETTE_TIMER);
 }
 static void StartSystick(Application *This)
 {

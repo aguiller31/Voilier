@@ -7,9 +7,10 @@
 #include "Rotation_Service.h"
 #include "Batterie_Service.h"
 #include "Horloge_Service.h"
-#include "Girouette_Service.h"
+#include "Girouette_Service2.h"
 #include "Bordage_Service2.h"
 #include "Accelerometre_Service.h"
+#include "RTC_Service.h"
 #include <stdlib.h>
 #include <stdio.h>
 

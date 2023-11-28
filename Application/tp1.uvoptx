@@ -368,25 +368,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>36</LineNumber>
+          <LineNumber>40</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134220092</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Services\Src\Batterie_Service.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\tp1_Simule\../Services/Src/Batterie_Service.c\36</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>61</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134220588</Address>
+          <Address>134220936</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -395,7 +379,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>.\Source\app.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\tp1_Simule\Source/app.c\61</Expression>
+          <Expression>\\tp1_Simule\Source/app.c\40</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -458,6 +442,11 @@
           <count>11</count>
           <WinNumber>1</WinNumber>
           <ItemText>nbre,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>12</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>T</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
@@ -727,8 +716,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Services\Src\Girouette_Service.c</PathWithFileName>
-      <FilenameWithoutPath>Girouette_Service.c</FilenameWithoutPath>
+      <PathWithFileName>..\Services\Src\Bordage_Service2.c</PathWithFileName>
+      <FilenameWithoutPath>Bordage_Service2.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -739,8 +728,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Services\Src\Bordage_Service2.c</PathWithFileName>
-      <FilenameWithoutPath>Bordage_Service2.c</FilenameWithoutPath>
+      <PathWithFileName>..\Services\Src\Accelerometre_Service.c</PathWithFileName>
+      <FilenameWithoutPath>Accelerometre_Service.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -751,8 +740,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Services\Src\Accelerometre_Service.c</PathWithFileName>
-      <FilenameWithoutPath>Accelerometre_Service.c</FilenameWithoutPath>
+      <PathWithFileName>..\Services\Src\Girouette_Service2.c</PathWithFileName>
+      <FilenameWithoutPath>Girouette_Service2.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>3</GroupNumber>
+      <FileNumber>18</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Services\Src\RTC_Service.c</PathWithFileName>
+      <FilenameWithoutPath>RTC_Service.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

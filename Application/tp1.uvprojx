@@ -464,11 +464,6 @@
               <FilePath>..\Services\Src\Bordage_Service.c</FilePath>
             </File>
             <File>
-              <FileName>Girouette_Service.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Services\Src\Girouette_Service.c</FilePath>
-            </File>
-            <File>
               <FileName>Bordage_Service2.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Services\Src\Bordage_Service2.c</FilePath>
@@ -477,6 +472,16 @@
               <FileName>Accelerometre_Service.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Services\Src\Accelerometre_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Girouette_Service2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Girouette_Service2.c</FilePath>
+            </File>
+            <File>
+              <FileName>RTC_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\RTC_Service.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -949,11 +954,6 @@
               <FilePath>..\Services\Src\Bordage_Service.c</FilePath>
             </File>
             <File>
-              <FileName>Girouette_Service.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Services\Src\Girouette_Service.c</FilePath>
-            </File>
-            <File>
               <FileName>Bordage_Service2.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Services\Src\Bordage_Service2.c</FilePath>
@@ -962,6 +962,16 @@
               <FileName>Accelerometre_Service.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Services\Src\Accelerometre_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Girouette_Service2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Girouette_Service2.c</FilePath>
+            </File>
+            <File>
+              <FileName>RTC_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\RTC_Service.c</FilePath>
             </File>
           </Files>
         </Group>
