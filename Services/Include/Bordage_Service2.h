@@ -16,6 +16,7 @@ typedef struct BordageService
     void (*Setup)(struct BordageService*);
 		void (*Change)(struct BordageService*,int);
 		int (*GetTeta)(struct BordageService*);
+		void (*Lacher)(struct BordageService*);
 		float teta;
 		float duty_cycle;
 

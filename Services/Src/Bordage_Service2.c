@@ -34,6 +34,16 @@ void BordageService_Change(BordageService *This, int angle_girouette)
 			}
 		}
 }
+
+
+void BordageService_Lacher(BordageService *This){
+	#if BORDAGE_MODE == 1
+		MyTimer_PWM_dutyCycle(BORDAGE_PWM_TIMER , BORDAGE_PWM_TIMER_CHANNEL, BORDAGE_PWM_TIMER_DUTYCYCLE_MODE2); 
+	#else
+		MyTimer_PWM_dutyCycle(BORDAGE_PWM_TIMER , BORDAGE_PWM_TIMER_CHANNEL, BORDAGE_PWM_TIMER_DUTYCYCLE_MODE1); 
+	#endif
+	}
+
 int BordageService_GetTeta(BordageService *This){
 	return This->teta;
 }
@@ -47,6 +57,7 @@ static void BordageService_Init(BordageService *This)
 	This->Setup = BordageService_Setup;
 	This->Change = BordageService_Change;
 	This->GetTeta = BordageService_GetTeta;
+	This->Lacher = BordageService_Lacher;
 }
 
 /**

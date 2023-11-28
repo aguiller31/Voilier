@@ -9,6 +9,7 @@
 #include "Horloge_Service.h"
 #include "Girouette_Service.h"
 #include "Bordage_Service2.h"
+#include "Accelerometre_Service.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -28,7 +29,7 @@ typedef struct Application
 		//Callbacks du SYSTICK
 		void ( * Callback_pointeur_Systick_GetBattery ) (int) ;
 		void ( * Callback_pointeur_Systick_Bordage ) (int) ;
-		void ( * Callback_pointeur_Systick_GetAngleGirouette) (int) ;
+
 		void ( * Callback_pointeur_Systick_Infos) (int) ;
 
 		//Callbacks Rotation

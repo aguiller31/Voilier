@@ -3,9 +3,13 @@
 #include "stm32f10x.h"
 #include "GPIO_Driver.h"
 #include "TIMER_Driver.h"
+#include "conf.h"
+#include <stdlib.h>
 
-#define LEFT 0
-#define RIGHT 1
+
+	#define LEFT 0
+	#define RIGHT 1
+
 
 // Structure décrivant l'interface du service de rotation
 typedef struct RotationService

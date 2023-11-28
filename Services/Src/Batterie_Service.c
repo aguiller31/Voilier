@@ -34,7 +34,7 @@ void ( * Batterie_Callback_pointeur ) ( int ) ;
  */
 void BatterieService_Callback(int nbre)
 {
-	(*Batterie_Callback_pointeur) (nbre/92*100);
+	(*Batterie_Callback_pointeur) (100*nbre/1024);
 }
 
 /**

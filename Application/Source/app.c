@@ -8,14 +8,8 @@ BatterieService * BatSer;
 HorlogeService * HorSer;
 BordageService * BorSer;
 		
-//Variables
-int main_angle_girouette;
 
-void Callback_Systick_GetAngleGirouette(int time)
-{
-	if(time%GIROUETTE_SYSTIC_PERIOD ==0)
-		main_angle_girouette=getAngleGirouette();
-}
+
 void Callback_Systick_GetBattery(int time)
 {
 	if(time%BATTERIE_SYSTIC_PERIOD ==0)
@@ -24,13 +18,24 @@ void Callback_Systick_GetBattery(int time)
 
 void Callback_Systick_Bordage(int time)
 {
+	int angle_girouette,angle_roulis;
 	if(time%BORDAGE_SYSTIC_PERIOD ==0){
-		BorSer->Change(BorSer,main_angle_girouette);
+		angle_roulis=Angle_Roulis(ACCELERO_SPI);
+		if(	angle_roulis==1){ //chavriement
+			BorSer->Lacher(BorSer);
+		}else{
+			angle_girouette=getAngleGirouette();
+			BorSer->Change(BorSer,angle_girouette);
+		}
+		
+		/*angle_girouette=getAngleGirouette();
+			BorSer->Change(BorSer,angle_girouette);*/
 	}
+		
 }
 void Callback_Systick_Infos(int time)
 {
-	char * angle;
+	char angle[10];
 	if(time%300 ==0){//toutes les 3 secondes on envoie l’information de bordage en cours, cad l’angle d’ouverture de voile 
 		ComSer->WriteString(ComSer,"Angle d'ouverture de voile : ");
 		sprintf(angle, "%d", BorSer->GetTeta(BorSer));
@@ -62,6 +67,7 @@ static void SetupServices(Application *This)
 	SysSer = New_Systick();
 	SysSer->Setup(SysSer);
 	
+	Accelero_Init(ACCELERO_SPI);
 	
 	ComSer = New_Communication();
 	ComSer->Start(ComSer);
@@ -83,12 +89,16 @@ static void SetupCallbacks(Application *This)
 	//SYSTICK
 	This->Callback_pointeur_Systick_GetBattery = Callback_Systick_GetBattery;
 	This->Callback_pointeur_Systick_Bordage = Callback_Systick_Bordage;
-	This->Callback_pointeur_Systick_GetAngleGirouette = Callback_Systick_GetAngleGirouette;
 	This->Callback_pointeur_Systick_Infos = Callback_Systick_Infos;
 	
 	//ROTATION
+	#if ROTATION_MODE == 1
 	This->Callback_pointeur_Communication_Babord = Callback_Communication_Babord ;
 	This->Callback_pointeur_Communication_Tribord = Callback_Communication_Tribord ;
+	#else
+		This->Callback_pointeur_Communication_Babord = Callback_Communication_Tribord ;
+		This->Callback_pointeur_Communication_Tribord = Callback_Communication_Babord ;
+	#endif
 	This->Callback_pointeur_Communication_0 = Callback_Communication_0 ;
 	
 	//BATTERIE
@@ -113,7 +123,6 @@ static void StartSystick(Application *This)
 {
 	SysSer->Register(SysSer,This->Callback_pointeur_Systick_GetBattery); //pour toutes les 3sec
 	SysSer->Register(SysSer,This->Callback_pointeur_Systick_Bordage); //pour toutes les 20 ms
-	SysSer->Register(SysSer,This->Callback_pointeur_Systick_GetAngleGirouette);
 	SysSer->Register(SysSer,This->Callback_pointeur_Systick_Infos);
 	SysSer->Start(SysSer);
 }

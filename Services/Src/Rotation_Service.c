@@ -1,8 +1,5 @@
 #include "Rotation_Service.h"
 
-#include "stm32f10x.h"
-#include "conf.h"
-#include <stdlib.h>
 
 #ifndef CONFIG_H
 #define ROTATION_DIRECTION_GPIO 			GPIOC
