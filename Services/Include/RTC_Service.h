@@ -6,7 +6,7 @@
 #include "GPIO_Driver.h"
 
 
-char * Get_Time(void);
+void Get_Time(char * T);
 void Set_Time(void);
 
 #endif

@@ -8,7 +8,28 @@ BatterieService * BatSer;
 HorlogeService * HorSer;
 BordageService * BorSer;
 		
-
+void writeInt(int n){
+	char nbre[10];
+	sprintf(nbre, "%d", n);
+	ComSer->WriteString(ComSer,nbre);
+}
+void writeTime(){
+	int h1,h2,m1,m2,s1,s2;
+	char T[3]; 
+	Get_Time(T);
+	h1 = T[2];
+	m1 = T[1];
+	s1 = T[0];
+	/*s2=s1%60;
+	m2=(m1+(s1-s2)/60)%60;
+	h2= (h1 + (m1-m2)/60)%24;*/
+	writeInt(h1);
+	ComSer->WriteCharacter(ComSer,':');
+	writeInt(m1);
+	ComSer->WriteCharacter(ComSer,':');
+	writeInt(s1);
+	ComSer->WriteString(ComSer," - ");
+}
 
 void Callback_Systick_GetBattery(int time)
 {
@@ -22,6 +43,7 @@ void Callback_Systick_Bordage(int time)
 	if(time%BORDAGE_SYSTIC_PERIOD ==0){
 		angle_roulis=Angle_Roulis(ACCELERO_SPI);
 		if(	angle_roulis==1){ //chavriement
+			writeTime();
 			ComSer->WriteStringNL(ComSer,"Chavirement.");
 			BorSer->Lacher(BorSer);
 		}else{
@@ -33,32 +55,13 @@ void Callback_Systick_Bordage(int time)
 	}
 		
 }
-void writeInt(int n){
-	char nbre[10];
-	sprintf(nbre, "%d", n);
-	ComSer->WriteString(ComSer,nbre);
-}
-void writeTime(){
-	int h,m,s;
-	char * T = Get_Time();
-	h = T[2];
-	m = T[1];
-	s = T[0];
-	writeInt(h);
-	ComSer->WriteCharacter(ComSer,':');
-	writeInt(m);
-	ComSer->WriteCharacter(ComSer,':');
-	writeInt(s*60/100);
-	ComSer->WriteString(ComSer," - ");
-}
+
 void Callback_Systick_Infos(int time)
 {
 	if(time%300 ==0){//toutes les 3 secondes on envoie l’information de bordage en cours, cad l’angle d’ouverture de voile 
 		writeTime();
-		ComSer->WriteString(ComSer," - Angle d'ouverture de voile : ");
+		ComSer->WriteString(ComSer,"Angle d'ouverture de voile : ");
 		writeInt(BorSer->GetTeta(BorSer));
-		/*sprintf(angle, "%d", BorSer->GetTeta(BorSer));
-		ComSer->WriteString(ComSer,angle);*/
 		ComSer->WriteStringNL(ComSer," degres.");
 	}
 }
@@ -78,6 +81,7 @@ void Callback_Communication_0(){
 
 void Callback_Batterie(int battery_level){
 	if(battery_level < BATTERIE_LOW_LEVEL){
+		writeTime();
 		ComSer->SendAlert(ComSer,ALERT_LOW_BATTERY);
 	}
 }
