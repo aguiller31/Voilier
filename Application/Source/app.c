@@ -33,20 +33,28 @@ void Callback_Systick_Bordage(int time)
 	}
 		
 }
+void writeInt(int n){
+	char nbre[10];
+	scanf(nbre, "%d", n);
+	omSer->WriteCharacter(ComSer,nbre);
+}
+void writeTime(){
+	char * T = Get_Time();
+	writeInt((int)T[2]);
+	ComSer->WriteCharacter(ComSer,':');
+	writeInt((int)T[1]);
+	ComSer->WriteCharacter(ComSer,':');
+	writeInt((int)T[0]);
+	ComSer->WriteString(ComSer,' - ');
+}
 void Callback_Systick_Infos(int time)
 {
-	char angle[10];
-	if(time%300 ==0){//toutes les 3 secondes on envoie l’information de bordage en cours, cad l’angle d’ouverture de voile 
-		char * T = Get_Time();
-		sprintf(angle, "%c", T[2]);
-		ComSer->WriteCharacter(ComSer,angle);
-		ComSer->WriteCharacter(ComSer,':');
-		ComSer->WriteCharacter(ComSer,T[1]);
-		ComSer->WriteCharacter(ComSer,':');
-		ComSer->WriteCharacter(ComSer,T[0]);
+	if(time%300 ==0){//toutes les 3 secondes on envoie lâ€™information de bordage en cours, cad lâ€™angle dâ€™ouverture de voile 
+		writeTime();
 		ComSer->WriteString(ComSer," - Angle d'ouverture de voile : ");
-		sprintf(angle, "%d", BorSer->GetTeta(BorSer));
-		ComSer->WriteString(ComSer,angle);
+		writeInt(BorSer->GetTeta(BorSer));
+		/*sprintf(angle, "%d", BorSer->GetTeta(BorSer));
+		ComSer->WriteString(ComSer,angle);*/
 		ComSer->WriteStringNL(ComSer," degres.");
 	}
 }
@@ -160,7 +168,7 @@ static void Application_Init(Application *This)
 }
 
 /**
- * @brief Libère la mémoire allouée pour l'instance de l'application
+ * @brief LibÃ¨re la mÃ©moire allouÃ©e pour l'instance de l'application
  * 
  * @param This Pointeur vers l'instance de l'application
  */
@@ -170,8 +178,8 @@ void Application_New_Free(Application *This)
 }
 
 /**
- * @brief Crée une nouvelle instance de l'application
- * @details Alloue la mémoire et initialise l'instance de l'application
+ * @brief CrÃ©e une nouvelle instance de l'application
+ * @details Alloue la mÃ©moire et initialise l'instance de l'application
  * 
  * @return Pointeur vers la nouvelle instance de l'application
  */
