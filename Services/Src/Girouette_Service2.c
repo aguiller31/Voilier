@@ -8,7 +8,7 @@ int angle_girouette = 0;
 
 void Remise_zero(void){
       angle_girouette = 0;
-      TIM2->CNT = 0;
+      GIROUETTE_TIMER->CNT = 0;
 }
 
       
@@ -27,7 +27,7 @@ int getAngleGirouette(){
 }
 
 int getAngleGirouette2(){
-      return (TIM2->CNT)/4;
+      return (GIROUETTE_TIMER->CNT)/4;
 }
 void InitGirouette(void){
       // Configuration PC 10 : Input Floating A
@@ -59,7 +59,7 @@ void InitGirouette2(TIM_TypeDef * Timer){
       // Configuration PA 1 : Input Floating B
       MyGPIO_Init(GPIOA, 1, In_PullDown);
 
-      MyTimer_Base_Init(TIM2,1440-1,0);
+      MyTimer_Base_Init(GIROUETTE_TIMER ,1440-1,0);
       
       Timer->CCMR1 &= ~(0x03);
       Timer->CCMR1 |= (0x01);
