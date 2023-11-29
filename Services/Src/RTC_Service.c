@@ -32,7 +32,7 @@ char * Get_Time()
 
 char T[3];
 
-TimePaul *WTII;
+
 
 // structure Time
 Temps.SlaveAdress7bits = 0x68; // adresse I2C du slave (1101000)

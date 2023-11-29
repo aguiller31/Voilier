@@ -51,15 +51,13 @@ void InitGirouette(void){
 void InitGirouette2(TIM_TypeDef * Timer){
       
       // Configuration PA 0 : Input Floating A
-  MyGPIO_Init(GPIOA,0,In_PullDown);
+  MyGPIO_Init(GIROUETTE_SIGNAL_A_GPIO,GIROUETTE_SIGNAL_A_GPIO_PIN,In_PullDown);
       // Configuration PA 1 : Input Floating B
-      MyGPIO_Init(GPIOA, 1, In_PullDown);
+      MyGPIO_Init(GIROUETTE_SIGNAL_B_GPIO, GIROUETTE_SIGNAL_B_GPIO_PIN, In_PullDown);
       // Configuration PA 1 : Input Floating B
-      MyGPIO_Init(GPIOA, 1, In_PullDown);
-      // Configuration PA 1 : Input Floating B
-      MyGPIO_Init(GPIOA, 1, In_PullDown);
 
-      MyTimer_Base_Init(GIROUETTE_TIMER ,1440-1,0);
+
+      MyTimer_Base_Init(Timer ,1440-1,0);
       
       Timer->CCMR1 &= ~(0x03);
       Timer->CCMR1 |= (0x01);

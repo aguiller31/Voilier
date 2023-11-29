@@ -35,17 +35,21 @@ void Callback_Systick_Bordage(int time)
 }
 void writeInt(int n){
 	char nbre[10];
-	scanf(nbre, "%d", n);
-	omSer->WriteCharacter(ComSer,nbre);
+	sprintf(nbre, "%d", n);
+	ComSer->WriteString(ComSer,nbre);
 }
 void writeTime(){
+	int h,m,s;
 	char * T = Get_Time();
-	writeInt((int)T[2]);
+	h = T[2];
+	m = T[1];
+	s = T[0];
+	writeInt(h);
 	ComSer->WriteCharacter(ComSer,':');
-	writeInt((int)T[1]);
+	writeInt(m);
 	ComSer->WriteCharacter(ComSer,':');
-	writeInt((int)T[0]);
-	ComSer->WriteString(ComSer,' - ');
+	writeInt(s*60/100);
+	ComSer->WriteString(ComSer," - ");
 }
 void Callback_Systick_Infos(int time)
 {

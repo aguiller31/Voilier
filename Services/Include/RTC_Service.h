@@ -5,13 +5,6 @@
 #include "MyI2C.h"
 #include "GPIO_Driver.h"
 
-typedef struct
-{
-int heure;
-char minute;
-char seconde;
-}
-TimePaul;
 
 char * Get_Time(void);
 void Set_Time(void);

@@ -368,9 +368,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>40</LineNumber>
+          <LineNumber>48</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134220936</Address>
+          <Address>134229490</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -379,7 +379,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>.\Source\app.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\tp1_Simule\Source/app.c\40</Expression>
+          <Expression>\\tp1_Simule\Source/app.c\48</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -446,7 +446,42 @@
         <Ww>
           <count>12</count>
           <WinNumber>1</WinNumber>
-          <ItemText>T</ItemText>
+          <ItemText>T[0]</ItemText>
+        </Ww>
+        <Ww>
+          <count>13</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>n</ItemText>
+        </Ww>
+        <Ww>
+          <count>14</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>Temps.Ptr_Data[0],0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>15</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>Temps.Ptr_Data[1],0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>16</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>Temps.Ptr_Data[2],0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>17</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>h,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>18</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>m,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>19</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>s,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
