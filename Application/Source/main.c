@@ -1,3 +1,9 @@
+/*********************************************************************
+ * @file  main.c
+ * @author Antoine Guillermin, Nathan Laschon, Paul Gadanho, Yorgo Challoub, Florian Cunnac
+ * @brief Fichier principal
+ *********************************************************************/
+ 
 #include "app.h"
 
 /*

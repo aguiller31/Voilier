@@ -1,6 +1,11 @@
+/*********************************************************************
+ * @file  UART_Driver.c
+ * @author Antoine Guillermin, Yorgo Challoub
+ * @brief Fichier source du driver UART
+ *********************************************************************/
+ 
 #include "UART_Driver.h"
-#include "stm32f10x.h"
-#include <stdlib.h>
+
 
 /**
  * @brief Pointeur de fonction pour stocker les fonctions de rappel d'interruption RX.

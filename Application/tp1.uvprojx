@@ -391,14 +391,14 @@
               <FilePath>.\conf.h</FilePath>
             </File>
             <File>
-              <FileName>main2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Source\main2.c</FilePath>
-            </File>
-            <File>
               <FileName>app.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Source\app.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source\main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -451,11 +451,6 @@
               <FilePath>..\Services\Src\Batterie_Service.c</FilePath>
             </File>
             <File>
-              <FileName>Horloge_Service.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Services\Src\Horloge_Service.c</FilePath>
-            </File>
-            <File>
               <FileName>Systick_Service.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Services\Src\Systick_Service.c</FilePath>
@@ -476,14 +471,14 @@
               <FilePath>..\Services\Src\Accelerometre_Service.c</FilePath>
             </File>
             <File>
-              <FileName>Girouette_Service2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Services\Src\Girouette_Service2.c</FilePath>
-            </File>
-            <File>
               <FileName>RTC_Service.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Services\Src\RTC_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Girouette_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Girouette_Service.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -883,14 +878,14 @@
               <FilePath>.\conf.h</FilePath>
             </File>
             <File>
-              <FileName>main2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Source\main2.c</FilePath>
-            </File>
-            <File>
               <FileName>app.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Source\app.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source\main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -943,11 +938,6 @@
               <FilePath>..\Services\Src\Batterie_Service.c</FilePath>
             </File>
             <File>
-              <FileName>Horloge_Service.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Services\Src\Horloge_Service.c</FilePath>
-            </File>
-            <File>
               <FileName>Systick_Service.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Services\Src\Systick_Service.c</FilePath>
@@ -968,14 +958,14 @@
               <FilePath>..\Services\Src\Accelerometre_Service.c</FilePath>
             </File>
             <File>
-              <FileName>Girouette_Service2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Services\Src\Girouette_Service2.c</FilePath>
-            </File>
-            <File>
               <FileName>RTC_Service.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Services\Src\RTC_Service.c</FilePath>
+            </File>
+            <File>
+              <FileName>Girouette_Service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Src\Girouette_Service.c</FilePath>
             </File>
           </Files>
         </Group>

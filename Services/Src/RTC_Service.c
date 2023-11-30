@@ -1,3 +1,9 @@
+/*********************************************************************
+ * @file  RTC_Service.c
+ * @author Paul Gadanho
+ * @brief Fichier source du service RTC
+ *********************************************************************/
+ 
 #include "RTC_Service.h"
 
 

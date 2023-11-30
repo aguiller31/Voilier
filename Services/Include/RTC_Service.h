@@ -1,4 +1,10 @@
-#ifndef RTC_H
+/*********************************************************************
+ * @file  RTC_Service.h
+ * @author Paul Gadanho
+ * @brief Fichier head du service RTC
+ *********************************************************************/
+ 
+ #ifndef RTC_H
 	
 	#define RTC_H
 	#include "stm32f10x.h"

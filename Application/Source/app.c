@@ -11,7 +11,6 @@ SystickService *SysSer;
 CommunicationService *ComSer;
 RotationService *RotSer;
 BatterieService *BatSer;
-HorlogeService *HorSer;
 BordageService *BorSer;
 
 /**
@@ -132,9 +131,6 @@ static void SetupServices(Application *This)
 
     BatSer = New_Batterie();
     BatSer->Setup(BatSer);
-
-    HorSer = New_Horloge();
-    HorSer->Setup(HorSer);
 
     BorSer = New_Bordage();
     BorSer->Setup(BorSer);

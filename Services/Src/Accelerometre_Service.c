@@ -1,9 +1,15 @@
+/*********************************************************************
+ * @file  Accelerometre_Service.c
+ * @author Paul Gadanho
+ * @brief Fichier source du service Accelerometre 
+ *********************************************************************/
+
 #include "Accelerometre_Service.h"
 
 char BW_RATE_R = (first_bit | BW_RATE_W);
 
-
-void Accelero_Init (SPI_TypeDef * SPI) {
+void Accelero_Init (SPI_TypeDef * SPI)
+{
 	
 		char tps;
 	
@@ -55,11 +61,11 @@ void Accelero_Init (SPI_TypeDef * SPI) {
 		MySPI_Send(DATA_FORMAT_W);		// Je veux écrire DATA_FORMAT
 		MySPI_Send(tps);							// J'écrit POWER_CTL
 		MySPI_Set_NSS();							// CS �  1	
-		 
 }
 
 
-int	Angle_Roulis (SPI_TypeDef * SPI) {
+int	Angle_Roulis (SPI_TypeDef * SPI)
+{
 	
 	char x0,x1,y0,y1,z0,z1;
 
@@ -84,16 +90,15 @@ int	Angle_Roulis (SPI_TypeDef * SPI) {
 			Y = -y;
 		}
 		
-	
 		if (Y>128){
 			return 1;
 		}	// si Y>Z alors on chavire
 			else {
 			return 0;}			
-		
 }
 
-void wait(){
+void wait()
+{
 	int n_sec = 6;
 	do
 {
