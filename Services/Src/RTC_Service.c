@@ -13,10 +13,7 @@ MyI2C_Err_Enum Err;
 
 void (*ITErr_function)();
 
-void Erreur()
-{
-	Err = MyI2C_Get_Error(I2C1);
-}
+
 
 void Set_Time()
 {

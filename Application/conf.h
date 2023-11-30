@@ -56,8 +56,8 @@
 		#define USART3_GPIO_RX_PIN 11
 		#define USART3_GPIO_TX_PIN 10
 
-		#define COMMUNICATION_ALERT_ROULIS "Detection Limite du Roulis"
-		#define COMMUNICATION_ALERT_BATTERY "Tension de batterie trop faible"
+		#define COMMUNICATION_ALERT_ROULIS " - Detection limite du roulis"
+		#define COMMUNICATION_ALERT_BATTERY " - Tension de batterie trop faible"
 		
 		//BATTERIE
 		#define BATTERIE_SYSTIC_PERIOD 2000 //toutes les 2000 ms, on mesure la batterie

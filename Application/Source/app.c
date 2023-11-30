@@ -45,7 +45,7 @@ void Callback_Systick_Bordage(int time)
     angle_roulis = Angle_Roulis(ACCELERO_SPI);
     if (angle_roulis == 1) {
         Application_WriteTime();
-        ComSer->WriteStringNL(ComSer, " - Chavirement.");
+        ComSer->SendAlert(ComSer,ALERT_DLR);
         BorSer->Lacher(BorSer);
     } else {
         angle_girouette = getAngleGirouette2();
