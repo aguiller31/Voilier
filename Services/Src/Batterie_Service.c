@@ -1,22 +1,10 @@
+/*********************************************************************
+ * @file  Batterie_Service.c
+ * @author Antoine Guillermin
+ * @brief Fichier source du service Batterie 
+ *********************************************************************/
+ 
 #include "Batterie_Service.h"
-#include "stm32f10x.h"
-#include "conf.h"
-#include <stdlib.h>
-
-#ifndef CONFIG_H
-	#define BATTERIE_ADC_IT_PRIORITY 4
-	#define BATTERIE_ADC 			ADC1
-	#define BATTERIE_ADC_CHANNEL	0
-	#define BATTERIE_ADC_SAMPLING	7.5
-	#define BATTERIE_ADC_TRIGGER TIM4_CC4_event
-	#define BATTERIE_ADC_CC_VALUE 1000/2-1
-	
-	#define BATTERIE_TIMER_ARR			16000-1
-	#define BATTERIE_TIMER_PSC			1000-1
-	
-	#define BATTERIE_GPIO	GPIOA
-	#define BATTERIE_GPIO_PIN	0
-#endif
 
 /**
  * @brief Pointeur vers la fonction de rappel pour la gestion de la batterie.
@@ -34,7 +22,7 @@ void ( * Batterie_Callback_pointeur ) ( int ) ;
  */
 void BatterieService_Callback(int nbre)
 {
-	(*Batterie_Callback_pointeur) (nbre/92*100);
+	(*Batterie_Callback_pointeur) (100*nbre/1024);
 }
 
 /**
@@ -59,7 +47,8 @@ void BatterieService_Setup(BatterieService *This)
  * @param This Pointeur vers l'instance du service de batterie.
  * @param function Pointeur vers la fonction de rappel.
  */
-void BatterieService_RegisterBatteryLevel(BatterieService *This, void (*function)(int)) {
+void BatterieService_RegisterBatteryLevel(BatterieService *This, void (*function)(int))
+{
     Batterie_Callback_pointeur = function;
 }
 
@@ -69,7 +58,8 @@ void BatterieService_RegisterBatteryLevel(BatterieService *This, void (*function
  * 
  * @param This Pointeur vers l'instance du service de batterie.
  */
-void BatterieService_GetBatteryLevel(BatterieService *This) {
+void BatterieService_GetBatteryLevel(BatterieService *This)
+{
 	MyADC_SwStart(BATTERIE_ADC);
 }
 

@@ -1,35 +1,11 @@
+/*********************************************************************
+ * @file  Communication_Service.c
+ * @author Antoine Guillermin, Yorgo Challoub
+ * @brief Fichier source du service Communication 
+ *********************************************************************/
+
 #include "Communication_Service.h"
-#include <stdlib.h>
-#include "conf.h"
-//CONFIGURATION
-#ifndef CONFIG_H
-#define COMMUNICATION_UART_READ_IT_PRIORITY 3
-	
-#define COMMUNICATION_UART USART1
-#define COMMUNICATION_BAUD_RATE 9600
-#define COMMUNICATION_WORD_LENGTH 1
-#define COMMUNICATION_STOP_BITS 1.0
-#define COMMUNICATION_PARITY_CONTROL 0
 
-
-#define USART1_GPIO GPIOA
-#define USART1_GPIO_RX_PIN 10
-#define USART1_GPIO_TX_PIN 9
-
-#define USART2_GPIO GPIOA
-#define USART2_GPIO_RX_PIN 3
-#define USART2_GPIO_TX_PIN 2
-
-#define USART3_GPIO GPIOB
-#define USART3_GPIO_RX_PIN 11
-#define USART3_GPIO_TX_PIN 10
-
-#define COMMUNICATION_ALERT_ROULIS "Detection Limite du Roulis"
-#define COMMUNICATION_ALERT_BATTERY "Tension de batterie trop faible"
-#endif
-
-
-//CODE
 char *alerts[] = {
 	COMMUNICATION_ALERT_ROULIS,
 	COMMUNICATION_ALERT_BATTERY
@@ -55,7 +31,8 @@ typedef FunctionPointerDirection FunctionArrayDirection[2]; //tableaux des 2 fon
 FunctionArrayDirection functionTableDirection[3];
 
 // Fonction pour configurer les GPIO pour la communication
-void setGPIO_communication(GPIO_TypeDef * GPIO, int rx, int tx){
+void setGPIO_communication(GPIO_TypeDef * GPIO, int rx, int tx)
+{
 	MyGPIO_Init(GPIO,tx,AltOut_Ppull); // TX
 	MyGPIO_Init(GPIO,rx,In_Floating);  // RX
 }
@@ -66,7 +43,8 @@ void setGPIO_communication(GPIO_TypeDef * GPIO, int rx, int tx){
  * 
  * @param This Pointeur vers l'instance du service de communication.
  */
-void CommunicationService_Start(CommunicationService *This){
+void CommunicationService_Start(CommunicationService *This)
+{
 	GPIO_TypeDef * GPIO = (This->UART_nb == 1) ? USART1_GPIO : (This->UART_nb == 2) ? USART2_GPIO : USART3_GPIO;
 	int rx = (This->UART_nb == 1) ? USART1_GPIO_RX_PIN : (This->UART_nb == 2) ? USART2_GPIO_RX_PIN : USART3_GPIO_RX_PIN;
 	int tx = (This->UART_nb == 1) ? USART1_GPIO_TX_PIN : (This->UART_nb == 2) ? USART2_GPIO_TX_PIN : USART3_GPIO_TX_PIN;
@@ -87,8 +65,23 @@ void CommunicationService_Start(CommunicationService *This){
  * @param This Pointeur vers l'instance du service de communication.
  * @param c Caractère à envoyer.
  */
-void CommunicationService_WriteCharacter(CommunicationService *This, char c){
+void CommunicationService_WriteCharacter(CommunicationService *This, char c)
+{
 	This->UART->WriteCharacter(This->UART, c);
+}
+
+/**
+ * @brief Envoie un entier par l'UART.
+ * 
+ * @param This Pointeur vers l'instance du service de communication.
+ * @param n Entier à envoyer.
+ */
+
+void CommunicationService_WriteInt(CommunicationService *This, int n)
+{
+	char nbre[10];
+	sprintf(nbre, "%d", n);
+	This->WriteString(This,nbre);
 }
 
 /**
@@ -97,7 +90,8 @@ void CommunicationService_WriteCharacter(CommunicationService *This, char c){
  * @param This Pointeur vers l'instance du service de communication.
  * @param s Chaîne de caractères à envoyer.
  */
-void CommunicationService_WriteString(CommunicationService *This, char *s){
+void CommunicationService_WriteString(CommunicationService *This, char *s)
+{
 	This->UART->WriteString(This->UART, s);
 }
 
@@ -106,7 +100,8 @@ void CommunicationService_WriteString(CommunicationService *This, char *s){
  * 
  * @param This Pointeur vers l'instance du service de communication.
  */
-void CommunicationService_SendNewLine(CommunicationService *This){
+void CommunicationService_SendNewLine(CommunicationService *This)
+{
 	This->UART->WriteString(This->UART, "\r\n");
 }
 
@@ -116,7 +111,8 @@ void CommunicationService_SendNewLine(CommunicationService *This){
  * @param This Pointeur vers l'instance du service de communication.
  * @param s Chaîne de caractères à envoyer.
  */
-void CommunicationService_WriteStringNL(CommunicationService *This, char *s){
+void CommunicationService_WriteStringNL(CommunicationService *This, char *s)
+{
 	This->UART->WriteString(This->UART, s);
 	This->SendNewLine(This);
 }
@@ -127,10 +123,30 @@ void CommunicationService_WriteStringNL(CommunicationService *This, char *s){
  * @param This Pointeur vers l'instance du service de communication.
  * @param n Indice du message d'alerte.
  */
-void CommunicationService_SendAlert(CommunicationService *This, int n){
+void CommunicationService_SendAlert(CommunicationService *This, int n)
+{
 	This->WriteStringNL(This, alerts[n]);
 }
 
+static void CommunicationService_WriteTimeChar(CommunicationService *This, char T)
+{
+	This->WriteInt(This,(((int)T) >> 4) & 0xF);
+	This->WriteInt(This, ((int)T) & 0xF);
+}
+/**
+ * @brief Envoie l'heure par l'UART.
+ * 
+ * @param This Pointeur vers l'instance du service de communication.
+ * @param T* Tableau contenant l'heure
+ */
+void CommunicationService_WriteTime(CommunicationService *This, char * T)
+{
+	CommunicationService_WriteTimeChar(This,T[2]);
+	This->WriteCharacter(This,':');
+	CommunicationService_WriteTimeChar(This,T[1]);
+	This->WriteCharacter(This,':');
+	CommunicationService_WriteTimeChar(This,T[0]);
+}
 /**
  * @brief Enregistre une fonction callback pour chaque caractère reçu et pour chaque UART.
  * 
@@ -138,7 +154,8 @@ void CommunicationService_SendAlert(CommunicationService *This, int n){
  * @param c Caractère pour lequel la fonction callback est enregistrée.
  * @param function Fonction callback.
  */
-void CommunicationService_RegisterReadChar(CommunicationService *This, signed char c, void (*function)()) {
+void CommunicationService_RegisterReadChar(CommunicationService *This, signed char c, void (*function)())
+{
     functionTable[This->UART_nb-1][(int)c] = function;
 }
 
@@ -148,7 +165,8 @@ void CommunicationService_RegisterReadChar(CommunicationService *This, signed ch
  * @param This Pointeur vers l'instance du service de communication.
  * @param function Fonction callback.
  */
-void CommunicationService_RegisterReadBytes(CommunicationService *This, void (*function)(signed char)) {
+void CommunicationService_RegisterReadBytes(CommunicationService *This, void (*function)(signed char))
+{
     functionTableBytes[This->UART_nb-1] = function;
 }
 
@@ -159,7 +177,8 @@ void CommunicationService_RegisterReadBytes(CommunicationService *This, void (*f
  * @param direction Direction (Tribord ou Babord).
  * @param function Fonction callback.
  */
-void CommunicationService_RegisterReadDirection(CommunicationService *This, int direction, void (*function)(signed char)) {
+void CommunicationService_RegisterReadDirection(CommunicationService *This, int direction, void (*function)(signed char))
+{
     functionTableDirection[This->UART_nb-1][direction] = function;
 }
 
@@ -169,46 +188,43 @@ void CommunicationService_RegisterReadDirection(CommunicationService *This, int 
  * @param c Caractère reçu.
  * @param UART_nb Numéro de l'UART.
  */
-void CommunicationService_Callback(signed char c, int UART_nb){
+void CommunicationService_Callback(signed char c, int UART_nb)
+{
 	int n =c;
 	if(n > 0 & n <= 100){ // entre 0 et 100
-			if(functionTableDirection[UART_nb-1]){
-				if(functionTableDirection[UART_nb-1][BABORD]){
-					functionTableDirection[UART_nb-1][BABORD](c);
-				}
+		if(functionTableDirection[UART_nb-1]){
+			if(functionTableDirection[UART_nb-1][BABORD]){
+				functionTableDirection[UART_nb-1][BABORD](c);
 			}
-			
-		}
-		else if(c >=0xFFFFFF9C & c <=0xFFFFFFFF){ // entre 0 et 100
-			if(functionTableDirection[UART_nb-1]){
-				if(functionTableDirection[UART_nb-1][TRIBORD]){
-					functionTableDirection[UART_nb-1][TRIBORD](256-c);
-				}
-			}
-		}
-	else if( c >= 0x0 & c <= 0x7F){ // compris entre le char(0) et le char(128)
-			if(functionTable[UART_nb-1]){
-		if(functionTable[UART_nb-1][(int)c]){
-			functionTable[UART_nb-1][(int)c]();
 		}
 	}
-		
+	else if(c >=0xFFFFFF9C & c <=0xFFFFFFFF){ // entre 0 et 100
+		if(functionTableDirection[UART_nb-1]){
+			if(functionTableDirection[UART_nb-1][TRIBORD]){
+				functionTableDirection[UART_nb-1][TRIBORD](256-c);
+			}
+		}
+	}
+	else if( c >= 0x0 & c <= 0x7F){ // compris entre le char(0) et le char(128)
+		if(functionTable[UART_nb-1]){
+			if(functionTable[UART_nb-1][(int)c]){
+				functionTable[UART_nb-1][(int)c]();
+			}
+		}
 		else if(functionTableBytes[UART_nb-1]){
 			functionTableBytes[UART_nb-1](c);
 		}
 	} // caractère non ASCII
 	else{
 		if(c >= -100 & c <= -1){ // compris entre -100 et -1
-			
 			if(functionTableDirection[UART_nb-1]){
 				if(functionTableDirection[UART_nb-1][BABORD]){
 					functionTableDirection[UART_nb-1][BABORD](c*(-1));
 				}
 			}
-			
 		}else{ //ce qui est < à -100
 				if(functionTableBytes[UART_nb-1]){
-			functionTableBytes[UART_nb-1](c);
+					functionTableBytes[UART_nb-1](c);
 				}
 		}
 	}
@@ -220,7 +236,8 @@ void CommunicationService_Callback(signed char c, int UART_nb){
  * 
  * @param This Pointeur vers l'instance du service de communication.
  */
-void CommunicationService_Read(CommunicationService *This){ 
+void CommunicationService_Read(CommunicationService *This)
+{ 
 	void (*Callback_pointeur)(signed char, int); 
 	Callback_pointeur = CommunicationService_Callback;
 	This->UART->ActiveIT(This->UART, COMMUNICATION_UART_READ_IT_PRIORITY, Callback_pointeur);
@@ -235,6 +252,7 @@ static void CommunicationService_Init(CommunicationService *This)
 {
 	This->Start = CommunicationService_Start;
 	This->WriteCharacter = CommunicationService_WriteCharacter;
+	This->WriteInt = CommunicationService_WriteInt;
 	This->WriteString = CommunicationService_WriteString;
 	This->SendAlert = CommunicationService_SendAlert;
 	This->SendNewLine = CommunicationService_SendNewLine;
@@ -243,6 +261,7 @@ static void CommunicationService_Init(CommunicationService *This)
 	This->RegisterReadBytes = CommunicationService_RegisterReadBytes;
 	This->RegisterReadDirection = CommunicationService_RegisterReadDirection;
 	This->Read = CommunicationService_Read;
+	This->WriteTime = CommunicationService_WriteTime;
 }
 
 /**
@@ -272,51 +291,3 @@ CommunicationService *New_Communication()
     This->UART_nb = (COMMUNICATION_UART == USART1) ? 1 : (COMMUNICATION_UART == USART2) ? 2 : 3;
     return This;
 }
-
-
-//baud_rate = 9600 Bd, 19200 Bd, 38400 Bd,..., 115200 Bd
-//stop_bits = 1, 1.5, 2
-//parité : c’est un 9ieme bit qui vaut 1 selon que le nombre de bit à 1 est pair ou impair (on parle de parité paire et impaire).
-
-/*
-// Définition du type de fonction
-typedef void (*FunctionPointer)();
-FunctionPointer functionTable[128];
-
-//permet d'enregistrer une fonction callback pour chaque caractère recu
-void registerFunction_communication(char character, void (*function )()) {
-    functionTable[(int)character] = function;
-}
-//baud_rate = 9600 Bd, 19200 Bd, 38400 Bd,..., 115200 Bd
-//stop_bits = 1, 1.5, 2
-//parité : c’est un 9ieme bit qui vaut 1 selon que le nombre de bit à 1 est pair ou impair (on parle de parité paire et impaire).
-void Callback(char letter){
-    if (functionTable[(int)letter]) {
-        functionTable[(int)letter]();
-    }
-}
-void setGPIO_communication(GPIO_TypeDef * GPIO, int rx, int tx){
-		MyGPIO_Init(GPIO,tx,AltOut_Ppull); //TX
-		MyGPIO_Init(GPIO,rx,In_Floating); //RX
-}
-void init_communication(USART_TypeDef * USART){
-	GPIO_TypeDef * GPIO = (USART == USART1 || USART == USART2) ? GPIOA : GPIOB;
-	int rx = (USART == USART1)? 10 :(USART == USART2) ? 3 : 11;
-	int tx = (USART == USART1)? 9 :(USART == USART2) ? 2 : 10;
-
-	setGPIO_communication(GPIO,rx,tx);
-	
-	MyUSART_Init(USART, 9600, 1, 0);
-}
-void write_communication(char letter){
-		MyUSART_WriteCharacter(USART2, letter);
-}
-void read_communication(){ 
-	void ( * Callback_pointeur ) ( char ) ; 
-	Callback_pointeur = Callback ;
-	MyUSART_ActiveRXIT(USART2,0,Callback_pointeur);
-}
-int get_Pupitre_Adress(int address_voilier){
-	return 80+address_voilier;
-}
-*/

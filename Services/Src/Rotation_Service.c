@@ -1,21 +1,11 @@
+/*********************************************************************
+ * @file  Rotation_Service.c
+ * @author Antoine Guillermin, Yorgo Challoub
+ * @brief Fichier source du service Rotation 
+ *********************************************************************/
+
 #include "Rotation_Service.h"
 
-#include "stm32f10x.h"
-#include "conf.h"
-#include <stdlib.h>
-
-#ifndef CONFIG_H
-#define ROTATION_DIRECTION_GPIO 			GPIOC
-#define ROTATION_DIRECTION_GPIO_PIN		10
-
-#define ROTATION_SPEED_GPIO 				GPIOA
-#define ROTATION_SPEED_GPIO_PIN			10
-
-#define ROTATION_SPEED_TIMER 				TIM2
-#define ROTATION_SPEED_TIMER_CHANNEL		2
-#define ROTATION_SPEED_TIMER_ARR			60
-#define ROTATION_SPEED_TIMER_PSC			60
-#endif
 
 /**
  * @brief Configuration de la direction de rotation.

@@ -18,7 +18,7 @@ void bordage(int angle_girouette){
 					teta = 180 - (angle_girouette*(0.667) - 30); 
 				}
 				duty_cycle = 0.05 +(teta * (0.05/90));
-				MyTimer_PWM_dutyCycle(TIM2 , 2, duty_cycle);
+				MyTimer_PWM_dutyCycle(BORDAGE_PWM_TIMER , 2, duty_cycle); //Channel différent
 			}
 		} else {
 			if(angle_girouette <45 || angle_girouette > 315){
@@ -30,18 +30,14 @@ void bordage(int angle_girouette){
 					teta = 180 - (angle_girouette*(0.667) - 30); 
 				}
 				duty_cycle = 0.1 -(teta * (0.05/90));
-				MyTimer_PWM_dutyCycle(TIM2 , 2, duty_cycle);
+				MyTimer_PWM_dutyCycle(BORDAGE_PWM_TIMER , 2, duty_cycle);
 			}
 		}
 }
 		
 
 void InitBordage(void){
-	MyGPIO_Init(GPIOA, 1, AltOut_Ppull );
-
-
-	
-	
-	MyTimer_PWM_init( TIM2, 2, 39999, 35 );
-	MyTimer_PWM_dutyCycle(TIM2 , 2, 0.080);
+	MyGPIO_Init(BORDAGE_PWM_TIMER_GPIO, BORDAGE_PWM_TIMER_GPIO_PIN, AltOut_Ppull );
+	MyTimer_PWM_init( BORDAGE_PWM_TIMER, BORDAGE_PWM_TIMER_CHANNEL, BORDAGE_PWM_TIMER_ARR, BORDAGE_PWM_TIMER_PSC );
+	MyTimer_PWM_dutyCycle(BORDAGE_PWM_TIMER , BORDAGE_PWM_TIMER_CHANNEL, 0.080);
 }

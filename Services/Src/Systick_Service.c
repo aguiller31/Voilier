@@ -1,18 +1,20 @@
+/*********************************************************************
+ * @file  Systick_Service.c
+ * @author Antoine Guillermin
+ * @brief Fichier source du service Systick
+ *********************************************************************/
+ 
 #include "Systick_Service.h"
-#include "stm32f10x.h"
-#include "conf.h"
-#include "TIMER_Driver.h"
-#include <stdlib.h>
 
-#define DIVIDER 2 // (CLOCK_FREQUENCY/(SYSTICK_TIMER_ARR*SYSTICK_TIMER_PSC))
+#define PERIOD (SYSTICK_TIMER_ARR+1)*(SYSTICK_TIMER_PSC+1)/72000
+
 int time_spent;
 
 typedef void (*FunctionPointer)(int);
-FunctionPointer FunctionArray[SYSTICK_SIZE]; // Fixé arbitrairement, permet de définir 10 fonctions, on pourrait faire de la réalloc mais pas nécessaire ici
 
-#ifndef CONFIG_H
-	#define SYSTICK_RAZ_INTERVAL 5 // en s
-#endif
+FunctionPointer FunctionArray[SYSTICK_SIZE]; // Fixé arbitrairement, permet de définir 10 fonctions, on pourrait faire de la réalloc mais pas nécessaire ici
+int periods[SYSTICK_SIZE];
+
 
 /**
  * @brief Fonction de rappel pour le service Systick.
@@ -25,12 +27,14 @@ void SystickService_Callback() // compte toutes les 500ms
 
 	for(i = 0; i < SYSTICK_SIZE; i++) {
 		if(FunctionArray[i]) {
-			FunctionArray[i](time_spent);
+			if(time_spent*PERIOD%periods[i]==0){
+				FunctionArray[i](time_spent*PERIOD);
+			}
 		}
 	}
 
 	// Tous les SYSTICK_RAZ_INTERVAL secondes, on remet à 0, pour éviter de stocker un nombre trop grand
-	time_spent = (time_spent / DIVIDER == SYSTICK_RAZ_INTERVAL) ? 0 : time_spent;
+	time_spent = (time_spent * PERIOD == SYSTICK_RAZ_INTERVAL) ? 0 : time_spent;
 }
 
 /**
@@ -38,11 +42,13 @@ void SystickService_Callback() // compte toutes les 500ms
  * @details Permet à l'utilisateur d'ajouter une fonction à la liste des fonctions appelées périodiquement.
  * 
  * @param This Pointeur vers l'instance du service Systick.
+ * @param p période de l'appel.
  * @param function Pointeur vers la fonction de rappel.
  */
-void SystickService_Register(SystickService *This, void (*function)(int))
+void SystickService_Register(SystickService *This, int p, void (*function)(int))
 {
     FunctionArray[This->registered_nb] = function;
+		periods[This->registered_nb] = p;
     This->registered_nb++;
     This->registered_nb = (This->registered_nb == SYSTICK_SIZE) ? 0 : This->registered_nb;
     // écrase les premières fonctions, le mieux aurait été de faire de l'allocation dynamique et réallouer de la mémoire
@@ -111,5 +117,6 @@ SystickService *New_Systick()
     if(!This) return NULL;
     SystickService_Init(This);
     This->Free = SystickService_New_Free;
+		This->period = PERIOD;
     return This;
 }
