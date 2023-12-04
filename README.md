@@ -1,7 +1,4 @@
 # Voilier
-Réalisation d'un voilier piloté par une télécommande avec transmission bi-directionnelle d'informations (batterie, angles..), gestion automatique des voiles en fonction du vent, système anti-chavirement.
-
-## INTRODUCTION
 
 Lors de ce Bureau d’Etude, nous avons réalisé une maquette de voilier piloté par une télécommande avec transmission bidirectionnelle d'informations (batterie, angles...), gestion automatique des voiles en fonction du vent et un système anti-chavirement.
 
