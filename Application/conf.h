@@ -5,18 +5,19 @@
  *********************************************************************/
  
 #ifndef CONFIG_H
-	#define CONFIG_H
-			//HORLOGE
+		#define CONFIG_H
+	
+		//HORLOGE
 		#define HORLOGE_DEFAULT_HOUR 0x18 //0xHEURE
 		#define HORLOGE_DEFAULT_MIN 0x10 //0xMINUTE
+		
 		//GENERAL
 		
 		#define MODE 2 //1 = simulé, 2=réel
 		#define GENERAL_INFO_SYSTIC_PERIOD 3000 //ms
+		
 		//SYSTICK
 		#define SYSTICK_SIZE 3
-
-		
 		#define SYSTICK_TIMER_IT_PRIORITY 1
 		
 		#define SYSTICK_TIMER TIM1 //toutes les 10 ms
