@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'tp1' 
+ * Project: 'application' 
  * Target:  'Reel' 
  */
 

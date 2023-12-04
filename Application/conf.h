@@ -5,7 +5,7 @@
  *********************************************************************/
  
 #ifndef CONFIG_H
-		#define CONFIG_H
+			#define CONFIG_H
 	
 		//HORLOGE
 		#define HORLOGE_DEFAULT_HOUR 0x18 //0xHEURE
