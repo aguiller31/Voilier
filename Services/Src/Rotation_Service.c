@@ -73,7 +73,7 @@ void RotationService_Setup(RotationService *This)
  * 
  * @param This Pointeur vers l'instance du service de rotation.
  */
-static void RotationService_Init(RotationService *This)
+ void RotationService_Init(RotationService *This)
 {
     This->Setup = RotationService_Setup;
     This->SetupDirection = RotationService_SetupDirection;

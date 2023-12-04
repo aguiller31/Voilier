@@ -6,9 +6,12 @@
  
 #ifndef CONFIG_H
 	#define CONFIG_H
+			//HORLOGE
+		#define HORLOGE_DEFAULT_HOUR 0x18 //0xHEURE
+		#define HORLOGE_DEFAULT_MIN 0x10 //0xMINUTE
 		//GENERAL
 		
-		#define MODE 1 //1 = simulé, 2=réel
+		#define MODE 2 //1 = simulé, 2=réel
 		#define GENERAL_INFO_SYSTIC_PERIOD 3000 //ms
 		//SYSTICK
 		#define SYSTICK_SIZE 10
@@ -87,7 +90,7 @@
 		
 		//BORDAGE
 		#define BORDAGE_MODE 2
-		#define BORDAGE_SYSTIC_PERIOD 200 //toutes les 200ms
+		#define BORDAGE_SYSTIC_PERIOD 20 //toutes les 20ms
 		
 		#define BORDAGE_PWM_TIMER 	TIM3
 		#define BORDAGE_PWM_TIMER_CHANNEL	3
@@ -117,7 +120,5 @@
 		#define  GIROUETTE_SIGNAL_RST_GPIO GPIOC
 		#define  GIROUETTE_SIGNAL_RST_GPIO_PIN 9
 		
-		//HORLOGE
-		#define HORLOGE_DEFAULT_HOUR 0x08 //0xHEURE
-		#define HORLOGE_DEFAULT_MIN 0x40 //0xMINUTE
+
 #endif

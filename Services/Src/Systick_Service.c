@@ -14,7 +14,7 @@ typedef void (*FunctionPointer)(int);
 
 FunctionPointer FunctionArray[SYSTICK_SIZE]; // Fixé arbitrairement, permet de définir 10 fonctions, on pourrait faire de la réalloc mais pas nécessaire ici
 int periods[SYSTICK_SIZE];
-
+int times[SYSTICK_SIZE] = {0};
 
 /**
  * @brief Fonction de rappel pour le service Systick.
@@ -23,18 +23,21 @@ int periods[SYSTICK_SIZE];
 void SystickService_Callback() // compte toutes les 500ms
 {
 	int i;
-	time_spent++;
+	//time_spent++;
 
 	for(i = 0; i < SYSTICK_SIZE; i++) {
+		times[i]++;
 		if(FunctionArray[i]) {
-			if(time_spent*PERIOD%periods[i]==0){
-				FunctionArray[i](time_spent*PERIOD);
+			if(times[i]*((int)PERIOD)==periods[i]){//(time_spent*((int)PERIOD))%periods[i]==0){
+				FunctionArray[i](time_spent*((int)PERIOD));
+				times[i] = 0;
 			}
 		}
+		//times[i]++;
 	}
 
 	// Tous les SYSTICK_RAZ_INTERVAL secondes, on remet à 0, pour éviter de stocker un nombre trop grand
-	time_spent = (time_spent * PERIOD == SYSTICK_RAZ_INTERVAL) ? 0 : time_spent;
+	//time_spent = (time_spent * ((int)PERIOD) == SYSTICK_RAZ_INTERVAL) ? 0 : time_spent;
 }
 
 /**
@@ -88,7 +91,7 @@ void SystickService_Start(SystickService *This)
  * 
  * @param This Pointeur vers l'instance du service Systick.
  */
-static void  SystickService_Init(SystickService *This)
+ void  SystickService_Init(SystickService *This)
 {
 	This->Setup = SystickService_Setup;
 	This->Start = SystickService_Start;

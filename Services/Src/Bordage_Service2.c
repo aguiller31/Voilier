@@ -103,7 +103,7 @@ int BordageService_GetTeta(BordageService *This)
  * 
  * @param This Pointeur vers l'instance du service de Bordage.
  */
-static void BordageService_Init(BordageService *This)
+ void BordageService_Init(BordageService *This)
 {
     This->Setup = BordageService_Setup;
     This->Change = BordageService_Change;

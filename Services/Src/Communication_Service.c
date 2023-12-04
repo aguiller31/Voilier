@@ -128,7 +128,7 @@ void CommunicationService_SendAlert(CommunicationService *This, int n)
 	This->WriteStringNL(This, alerts[n]);
 }
 
-static void CommunicationService_WriteTimeChar(CommunicationService *This, char T)
+ void CommunicationService_WriteTimeChar(CommunicationService *This, char T)
 {
 	This->WriteInt(This,(((int)T) >> 4) & 0xF);
 	This->WriteInt(This, ((int)T) & 0xF);
@@ -248,7 +248,7 @@ void CommunicationService_Read(CommunicationService *This)
  * 
  * @param This Pointeur vers l'instance du service de communication.
  */
-static void CommunicationService_Init(CommunicationService *This)
+ void CommunicationService_Init(CommunicationService *This)
 {
 	This->Start = CommunicationService_Start;
 	This->WriteCharacter = CommunicationService_WriteCharacter;

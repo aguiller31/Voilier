@@ -69,7 +69,7 @@ void BatterieService_GetBatteryLevel(BatterieService *This)
  * 
  * @param This Pointeur vers l'instance du service de batterie.
  */
-static void  BatterieService_Init( BatterieService *This)
+ void  BatterieService_Init( BatterieService *This)
 {
 	This->Setup = BatterieService_Setup;
 	This->RegisterBatteryLevel = BatterieService_RegisterBatteryLevel;

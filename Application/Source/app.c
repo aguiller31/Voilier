@@ -16,11 +16,12 @@ BordageService *BorSer;
 /**
  * @brief Writes the current time to the communication service.
  */
-static void Application_WriteTime()
+void Application_WriteTime()
 {
     char T[3];
     Get_Time(T);
     ComSer->WriteTime(ComSer, T);
+
 }
 
 /**

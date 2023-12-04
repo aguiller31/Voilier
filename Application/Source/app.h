@@ -46,6 +46,8 @@
 		
 			//Callback batterie
 			void ( * Callback_pointeur_Batterie ) (int) ;
+			
+			
 
 	} Application;
 
