@@ -34,10 +34,10 @@
 		
 		
 			//Callbacks du SYSTICK
-			void ( * Callback_pointeur_Systick_GetBattery ) (int) ;
-			void ( * Callback_pointeur_Systick_Bordage ) (int) ;
+			void ( * Callback_pointeur_Systick_GetBattery ) () ;
+			void ( * Callback_pointeur_Systick_Bordage ) () ;
 
-			void ( * Callback_pointeur_Systick_Infos) (int) ;
+			void ( * Callback_pointeur_Systick_Infos) () ;
 
 			//Callbacks Rotation
 			void ( * Callback_pointeur_Communication_Babord ) (signed char) ;

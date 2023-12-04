@@ -8,9 +8,8 @@
 
 #define PERIOD (SYSTICK_TIMER_ARR+1)*(SYSTICK_TIMER_PSC+1)/72000
 
-int time_spent;
 
-typedef void (*FunctionPointer)(int);
+typedef void (*FunctionPointer)();
 
 FunctionPointer FunctionArray[SYSTICK_SIZE]; // Fixé arbitrairement, permet de définir 10 fonctions, on pourrait faire de la réalloc mais pas nécessaire ici
 int periods[SYSTICK_SIZE];
@@ -23,21 +22,15 @@ int times[SYSTICK_SIZE] = {0};
 void SystickService_Callback() // compte toutes les 500ms
 {
 	int i;
-	//time_spent++;
-
 	for(i = 0; i < SYSTICK_SIZE; i++) {
 		times[i]++;
 		if(FunctionArray[i]) {
 			if(times[i]*((int)PERIOD)==periods[i]){//(time_spent*((int)PERIOD))%periods[i]==0){
-				FunctionArray[i](time_spent*((int)PERIOD));
+				FunctionArray[i]();
 				times[i] = 0;
 			}
 		}
-		//times[i]++;
 	}
-
-	// Tous les SYSTICK_RAZ_INTERVAL secondes, on remet à 0, pour éviter de stocker un nombre trop grand
-	//time_spent = (time_spent * ((int)PERIOD) == SYSTICK_RAZ_INTERVAL) ? 0 : time_spent;
 }
 
 /**
@@ -67,7 +60,6 @@ void SystickService_Register(SystickService *This, int p, void (*function)(int))
 void SystickService_Setup(SystickService *This)
 { 
 	void (*SystickService_Callback_pointeur)(); /* Pointeur de fonction */
-	time_spent = 0;
 	This->registered_nb = 0;
 	MyTimer_Base_Init(SYSTICK_TIMER, SYSTICK_TIMER_ARR, SYSTICK_TIMER_PSC);
 	SystickService_Callback_pointeur = SystickService_Callback;

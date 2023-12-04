@@ -14,7 +14,7 @@
 		#define MODE 2 //1 = simulé, 2=réel
 		#define GENERAL_INFO_SYSTIC_PERIOD 3000 //ms
 		//SYSTICK
-		#define SYSTICK_SIZE 10
+		#define SYSTICK_SIZE 3
 
 		
 		#define SYSTICK_TIMER_IT_PRIORITY 1

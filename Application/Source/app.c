@@ -29,7 +29,7 @@ void Application_WriteTime()
  * 
  * @param time The current time.
  */
-void Callback_Systick_GetBattery(int time)
+void Callback_Systick_GetBattery()
 {
     BatSer->GetBatteryLevel(BatSer);
 }
@@ -39,7 +39,7 @@ void Callback_Systick_GetBattery(int time)
  * 
  * @param time The current time.
  */
-void Callback_Systick_Bordage(int time)
+void Callback_Systick_Bordage()
 {
     int angle_girouette, angle_roulis;
 
@@ -59,7 +59,7 @@ void Callback_Systick_Bordage(int time)
  * 
  * @param time The current time.
  */
-void Callback_Systick_Infos(int time)
+void Callback_Systick_Infos()
 {
     // every 3 seconds, send the current bordage information, i.e., the sail opening angle
     Application_WriteTime();
