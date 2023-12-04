@@ -67,18 +67,18 @@ void Accelero_Init (SPI_TypeDef * SPI)
 int	Angle_Roulis (SPI_TypeDef * SPI)
 {
 	
-	char x0,x1,y0,y1,z0,z1;
+	char y0,y1;
 
 	int16_t y,Y;
 	
 	MySPI_Clear_NSS();						// CS √  0
 	MySPI_Send(X0_R_MB);			// Je veux Lire BW_RATE
-	x0 = MySPI_Read();
-	x1 = MySPI_Read();
+	MySPI_Read();
+	MySPI_Read();
 	y0 = MySPI_Read();
 	y1 = MySPI_Read();
-	z0 = MySPI_Read();
-	z1 = MySPI_Read();
+	MySPI_Read();
+	MySPI_Read();
 	MySPI_Set_NSS();						// CS √  0
 	
 		// Concat√©nation des cha√Ænes en une nouvelle cha√Æne
