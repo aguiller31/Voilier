@@ -15,7 +15,7 @@
 		#define GENERAL_INFO_SYSTIC_PERIOD 3000 //ms
 		//SYSTICK
 		#define SYSTICK_SIZE 10
-		#define SYSTICK_RAZ_INTERVAL 1000*60*5 //RAZ ttes les 5 minutes
+
 		
 		#define SYSTICK_TIMER_IT_PRIORITY 1
 		
