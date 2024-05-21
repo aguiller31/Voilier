@@ -77,7 +77,7 @@ Bien sûr cette norme ne fait qu'approcher la "vraie" POO mais ce choix a été 
 Informations détaillées sur le code : https://github.com/aguiller31/Voilier/blob/master/Documentation/index.html
 
 
-Programmé en C sur STM32 par Antoine Guillermin, Nathan Laschon, Paul Gadanho, Yorgo Challoub et Florian Cunnac.
+Programmé en C sur STM32 par Antoine Guillermin, Nathan Laschon, Florian Cunnac, Yorgo Challoub et Paul Gadanho.
 
 INSA Toulouse 2023-2024 - 4ème année : Automatique et Electronique / Systèmes Embarqués
 
